@@ -4,7 +4,7 @@
 
 Svelte JSON Viewer Component. Supports [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set), [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#iterable), [Symbol](https://developer.mozilla.org/en-US/docs/Glossary/Symbol).
 
-[Try it out on repl](https://svelte.dev/repl/hello-world?version=3.14.1).
+[Try it out on repl](https://svelte.dev/repl/89867bd1acaa48b4b29e29d1fdfa1ddf?version=3.14.1).
 
 ## Install
 
