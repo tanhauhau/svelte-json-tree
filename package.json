@@ -1,6 +1,6 @@
 {
   "name": "svelte-json-tree",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Svelte JSON Viewer Component",
   "main": "src/index.svelte",
   "svelte": "src/index.svelte",
