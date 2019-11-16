@@ -1,10 +1,19 @@
 {
   "name": "svelte-json-tree",
   "version": "0.0.2",
+  "description": "Svelte JSON Viewer Component",
   "main": "src/index.svelte",
   "svelte": "src/index.svelte",
   "author": "Tan Li Hau <lhtan93@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "svelte",
+    "json viewer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tanhauhau/svelte-json-tree.git"
+  },
   "devDependencies": {
     "svelte": "^3.14.1"
   }
