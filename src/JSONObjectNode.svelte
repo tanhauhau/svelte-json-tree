@@ -4,7 +4,7 @@
   import JSONKey from './JSONKey.svelte';
   import JSONNested from './JSONNested.svelte';
 
-  export let key, value, isParentExpanded, nodeType;
+  export let key, value, isParentExpanded, isParentArray, nodeType;
   export let expanded = false;
 
   $: keys = Object.getOwnPropertyNames(value);
@@ -17,6 +17,7 @@
   {key}
   {expanded}
   {isParentExpanded}
+  {isParentArray}
   {keys}
   {getValue}
   label="{nodeType} "

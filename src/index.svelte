@@ -5,7 +5,7 @@
 
   setContext(contextKey, {});
 
-  export let value;
+  export let key = '', value;
 </script>
 <style>
   ul {
@@ -35,5 +35,5 @@
   }
 </style>
 <ul>
-  <JSONNode {value} isParentExpanded={true} isParentArray={false} />
+  <JSONNode {key} {value} isParentExpanded={true} isParentArray={false} />
 </ul>

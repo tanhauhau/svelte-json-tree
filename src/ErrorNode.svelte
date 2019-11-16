@@ -47,7 +47,7 @@
       {#if expanded}
         <JSONNode key="message" value={value.message} />
         <li>
-          <JSONKey key="stack" colon=":" {isParentExpanded} {isParentArray} />
+          <JSONKey key="stack" colon=":" {isParentExpanded} />
           <span>
             {#each stack as line, index}
               <span class:indent={index > 0}>{line}</span><br />

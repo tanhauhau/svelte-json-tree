@@ -27,6 +27,7 @@
 <JSONNested
   {key}
   {isParentExpanded}
+  {isParentArray}
   {keys}
   {getKey}
   {getValue}

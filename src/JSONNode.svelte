@@ -13,9 +13,9 @@
 </script>
 
 {#if nodeType === 'Object'}
-  <JSONObjectNode {key} {value} {isParentExpanded} {nodeType} />
+  <JSONObjectNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} />
 {:else if nodeType === 'Error'}
-  <ErrorNode {key} {value} {isParentExpanded} {nodeType} />
+  <ErrorNode {key} {value} {isParentExpanded} {isParentArray} />
 {:else if nodeType === 'Array'}
   <JSONArrayNode {key} {value} {isParentExpanded} {isParentArray} />
 {:else if nodeType === 'Iterable' || nodeType === 'Map' || nodeType === 'Set'}

@@ -5,7 +5,7 @@
   import JSONNode from './JSONNode.svelte';
   import JSONKey from './JSONKey.svelte';
 
-  export let key, keys, colon, label = '', isParentExpanded, isParentArray, isArray, bracketOpen, bracketClose;
+  export let key, keys, colon = ':', label = '', isParentExpanded, isParentArray, isArray = false, bracketOpen, bracketClose;
   export let previewKeys = keys;
   export let getKey = key => key;
   export let getValue = key => key;

@@ -4,7 +4,7 @@
 
   import JSONKey from './JSONKey.svelte';
 
-  export let key, value, valueGetter, isParentExpanded, isParentArray, nodeType;
+  export let key, value, valueGetter = null, isParentExpanded, isParentArray, nodeType;
 
   const { colon } = getContext(contextKey);
 </script>

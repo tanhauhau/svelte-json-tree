@@ -4,7 +4,7 @@
   import JSONKey from './JSONKey.svelte';
   import JSONNested from './JSONNested.svelte';
 
-  export let key, value, isParentExpanded;
+  export let key, value, isParentExpanded, isParentArray;
   export let expanded = false;
 
   const keys = ['key', 'value'];
@@ -16,6 +16,7 @@
 <JSONNested
   {expanded}
   {isParentExpanded}
+  {isParentArray}
   key={isParentExpanded ? String(key) : value.key}
   {keys}
   {getValue}
