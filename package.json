@@ -1,0 +1,11 @@
+{
+  "name": "svelte-json-tree",
+  "version": "0.0.1",
+  "main": "src/index.svelte",
+  "svelte": "src/index.svelte",
+  "author": "Tan Li Hau <lhtan93@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "svelte": "^3.14.1"
+  }
+}
