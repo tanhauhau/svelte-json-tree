@@ -23,12 +23,15 @@
     --li-colon-space: 0.3em;
     font-size: var(--json-tree-font-size, 12px);
     font-family: 'Courier New', Courier, monospace;
-    margin: 0;
   }
   ul :global(li) {
     line-height: var(--li-line-height, 1.3);
     display: var(--li-display, list-item);
     list-style: none;
+  }
+  ul, ul :global(ul) {
+    padding: 0;
+    margin: 0;
   }
 </style>
 <ul>

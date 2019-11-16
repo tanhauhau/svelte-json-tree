@@ -30,9 +30,6 @@
   .indent {
     margin-left: var(--li-identation);
   }
-  ul {
-    margin: 0;
-  }
   .collapse {
     --li-display: inline;
     display: inline;
