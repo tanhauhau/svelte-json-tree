@@ -10,14 +10,14 @@
   label {
     display: inline-block;
     color: var(--label-color);
-    margin: 0;
+    padding: 0;
   }
   .spaced {
-    margin-right: var(--li-colon-space);
+    padding-right: var(--li-colon-space);
   }
 </style>
 {#if showKey && key}
-  <label class:spaced={isParentExpanded}>
+  <label class:spaced={isParentExpanded} on:click>
     <span>{key}{colon}</span>
   </label>
 {/if}

@@ -15,7 +15,7 @@
     word-break: break-all;
   }
   .indent {
-    margin-left: var(--li-identation);
+    padding-left: var(--li-identation);
   }
   .String {
     color: var(--string-color);

@@ -20,7 +20,7 @@
   key={isParentExpanded ? String(key) : value.key}
   {keys}
   {getValue}
-  label={isParentExpanded ? ': Entry ': '=> '}
+  label={isParentExpanded ? 'Entry ' : '=> '}
   bracketOpen={'{'}
   bracketClose={'}'}
 />

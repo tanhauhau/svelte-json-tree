@@ -32,7 +32,7 @@
 </script>
 <style>
   .indent {
-    margin-left: var(--li-identation);
+    padding-left: var(--li-identation);
   }
   .collapse {
     --li-display: inline;
@@ -43,13 +43,20 @@
     margin-left: -0.5em;
     margin-right: 0.5em;
   }
+
+  label {
+    /* display: contents; */
+    position: relative;
+  }
 </style>
 <li class:indent={isParentExpanded}>
-  {#if expandable && isParentExpanded}
-    <JSONArrow on:click={toggleExpand} {expanded} />
-  {/if}
-  <JSONKey {key} colon={context.colon} {isParentExpanded} {isParentArray} />
-  <span><span on:click={toggleExpand}>{label}</span>{bracketOpen}</span>
+  <label>
+    {#if expandable && isParentExpanded}
+      <JSONArrow on:click={toggleExpand} {expanded} />
+    {/if}
+    <JSONKey {key} colon={context.colon} {isParentExpanded} {isParentArray} on:click={toggleExpand} />
+    <span on:click={toggleExpand}><span>{label}</span>{bracketOpen}</span>
+  </label>
     {#if isParentExpanded}
       <ul class:collapse={!expanded} on:click={expand}>
         {#each slicedKeys as key, index}
