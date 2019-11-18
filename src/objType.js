@@ -9,16 +9,3 @@ export default function objType(obj) {
 
   return type;
 }
-
-export function isPrimitive(obj) {
-  switch(objType(obj)) {
-    case 'String':
-    case 'Number':
-    case 'Boolean':
-    case 'Null':
-    case 'Undefined':
-      return true;
-    default:
-      return false;
-  }
-}

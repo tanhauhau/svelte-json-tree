@@ -1,7 +1,4 @@
 <script>
-  import { isPrimitive } from './objType';
-  import JSONNode from './JSONNode.svelte';
-
   export let key, isParentExpanded, isParentArray = false, colon = ':';
 
   $: showKey = (isParentExpanded || !isParentArray || key != +key);
