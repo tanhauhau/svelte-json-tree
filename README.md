@@ -17,7 +17,7 @@ Use [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/lang/en) to inst
 npm install --save svelte-json-tree
 
 # yarn
-yarn install svelte-json-tree
+yarn add svelte-json-tree
 ```
 
 ## Usage
