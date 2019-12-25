@@ -22,6 +22,8 @@ yarn add svelte-json-tree
 
 ## Usage
 
+With Svelte:
+
 ```html
 <script>
   import JSONTree from 'svelte-json-tree';
@@ -36,6 +38,21 @@ yarn add svelte-json-tree
 </script>
 
 <JSONTree {value} />
+```
+
+Without Svelte:
+
+```js
+const JSONTree = require('svelte-json-tree');
+const jsonTree = new JSONTree({
+	target: document.body,
+	props: {
+		value: { "foo": "bar" }
+	}
+});
+
+// update value
+jsonTree.$set({ value: ['1'] });
 ```
 
 ## Overriding Styles

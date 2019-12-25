@@ -2,19 +2,31 @@
   "name": "svelte-json-tree",
   "version": "0.0.7",
   "description": "Svelte JSON Viewer Component",
-  "main": "src/Root.svelte",
+  "main": "dist/index.js",
   "svelte": "src/Root.svelte",
   "author": "Tan Li Hau <lhtan93@gmail.com>",
   "license": "MIT",
   "keywords": [
     "svelte",
-    "json viewer"
+    "json viewer",
+    "json",
+    "json tree",
+    "component"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/tanhauhau/svelte-json-tree.git"
   },
+  "scripts": {
+    "build": "rollup -c",
+    "build-website": "rollup -c rollup-docs.config.js"
+  },
   "devDependencies": {
-    "svelte": "^3.14.1"
+    "rollup": "^1.27.14",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-svelte": "^5.1.1",
+    "rollup-plugin-terser": "^5.1.3",
+    "svelte": "3.16.7"
   }
 }
