@@ -31,6 +31,9 @@
 
 </script>
 <style>
+  label {
+    display: inline-block;
+  }
   .indent {
     padding-left: var(--li-identation);
   }

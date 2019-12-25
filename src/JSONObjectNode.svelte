@@ -16,6 +16,7 @@
   {isParentExpanded}
   {isParentArray}
   {keys}
+  previewKeys={keys}
   {getValue}
   label="{nodeType} "
   bracketOpen={'{'}

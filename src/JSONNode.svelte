@@ -9,37 +9,57 @@
   import objType from './objType';
 
   export let key, value, isParentExpanded, isParentArray;
-  const nodeType = objType(value);
+  $: nodeType = objType(value);
+  $: componentType = getComponent(nodeType);
+  $: valueGetter = getValueGetter(nodeType);
+
+  function getComponent(nodeType) {
+    switch (nodeType) {
+      case 'Object':
+        return JSONObjectNode;
+      case 'Error':
+        return ErrorNode;
+      case 'Array':
+        return JSONArrayNode;
+      case 'Iterable':
+      case 'Map':
+      case 'Set':
+        return typeof value.set === 'function' ? JSONIterableMapNode : JSONIterableArrayNode;
+      case 'MapEntry':
+        return JSONMapEntryNode;
+      default:
+        return JSONValueNode;
+    }
+  }
+
+  function getValueGetter(nodeType) {
+    switch (nodeType) {
+      case 'Object':
+      case 'Error':
+      case 'Array':
+      case 'Iterable':
+      case 'Map':
+      case 'Set':
+      case 'MapEntry':
+      case 'Number':
+        return undefined;
+      case 'String':
+        return raw => `"${raw}"`;
+      case 'Boolean':
+        return raw => (raw ? 'true' : 'false');
+      case 'Date':
+        return raw => raw.toISOString();
+      case 'Null':
+        return () => 'null';
+      case 'Undefined':
+        return () => 'undefined';
+      case 'Function':
+      case 'Symbol':
+        return raw => raw.toString();
+      default:
+        return () => `<${nodeType}>`;
+    }
+  }
 </script>
 
-{#if nodeType === 'Object'}
-  <JSONObjectNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} />
-{:else if nodeType === 'Error'}
-  <ErrorNode {key} {value} {isParentExpanded} {isParentArray} />
-{:else if nodeType === 'Array'}
-  <JSONArrayNode {key} {value} {isParentExpanded} {isParentArray} />
-{:else if nodeType === 'Iterable' || nodeType === 'Map' || nodeType === 'Set'}
-  {#if typeof value.set === 'function'}
-    <JSONIterableMapNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} />
-  {:else}
-    <JSONIterableArrayNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} />
-  {/if}
-{:else if nodeType === 'MapEntry'}
-  <JSONMapEntryNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} />
-{:else if nodeType === 'String'}  
-  <JSONValueNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} valueGetter={raw => `"${raw}"`} />
-{:else if nodeType === 'Number'}
-  <JSONValueNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} />
-{:else if nodeType === 'Boolean'}
-  <JSONValueNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} valueGetter={raw => (raw ? 'true' : 'false')} />
-{:else if nodeType === 'Date'}
-  <JSONValueNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} valueGetter={raw => raw.toISOString()} />
-{:else if nodeType === 'Null'}
-  <JSONValueNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} valueGetter={() => 'null'} />
-{:else if nodeType === 'Undefined'}
-  <JSONValueNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} valueGetter={() => 'undefined'} />
-{:else if nodeType === 'Function' || nodeType === 'Symbol'}
-  <JSONValueNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} valueGetter={raw => raw.toString()} />
-{:else}
-  <JSONValueNode {key} {value} {isParentExpanded} {isParentArray} {nodeType} valueGetter={() => `<${nodeType}>`} />
-{/if}
+<svelte:component this={componentType} {key} {value} {isParentExpanded} {isParentArray} {nodeType} {valueGetter} />
