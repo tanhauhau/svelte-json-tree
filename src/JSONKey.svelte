@@ -14,6 +14,7 @@
   }
 </style>
 {#if showKey && key}
+  <!-- svelte-ignore a11y-label-has-associated-control -->
   <label class:spaced={isParentExpanded} on:click>
     <span>{key}{colon}</span>
   </label>
