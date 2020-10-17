@@ -53,6 +53,7 @@
   }
 </style>
 <li class:indent={isParentExpanded}>
+  <!-- svelte-ignore a11y-label-has-associated-control -->
   <label>
     {#if expandable && isParentExpanded}
       <JSONArrow on:click={toggleExpand} {expanded} />
