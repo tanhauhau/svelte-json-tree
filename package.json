@@ -5,6 +5,7 @@
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "svelte": "src/Root.svelte",
+  "types": "typings/index.d.ts",
   "author": "Tan Li Hau <lhtan93@gmail.com>",
   "license": "MIT",
   "keywords": [
