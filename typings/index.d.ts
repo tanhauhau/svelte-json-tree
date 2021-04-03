@@ -1,6 +1,3 @@
-import { SvelteComponent } from "svelte";
+import { SvelteComponentTyped } from "svelte"
 
-declare module "svelte-json-tree" {
-  const value: SvelteComponent;
-  export default value;
-}
+export default class Root extends SvelteComponentTyped<{ key?: string; value: any }> {}
