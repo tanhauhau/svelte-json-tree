@@ -1,17 +1,33 @@
-const svelte = require('rollup-plugin-svelte');
-const resolve = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
-const { terser } = require('rollup-plugin-terser');
+import svelte from 'rollup-plugin-svelte';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import { terser } from 'rollup-plugin-terser';
+import pkg from './package.json';
 
-module.exports = {
+const name = pkg.name
+	.replace(/^(@\S+\/)?(svelte-)?(\S+)/, '$3')
+	.replace(/^\w/, m => m.toUpperCase())
+	.replace(/-\w/g, m => m[1].toUpperCase());
+
+export default {
   input: 'src/Root.svelte',
-  output: {
-    sourcemap: true,
-    format: 'cjs',
-    file: 'dist/index.js',
-  },
+	output: [
+		{
+      file: pkg.module,
+      format: 'es',
+      sourcemap: true,
+    },
+		{
+      file: pkg.main,
+      format: 'umd',
+      name,
+      sourcemap: true,
+    },
+	],
   plugins: [
-    svelte({}),
+    svelte({
+      emitCss: false,
+    }),
     resolve({
       browser: true,
       dedupe: importee =>

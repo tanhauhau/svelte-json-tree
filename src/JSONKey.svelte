@@ -4,7 +4,7 @@
   $: showKey = (isParentExpanded || !isParentArray || key != +key);
 </script>
 <style>
-  label {
+  div {
     display: inline-block;
     color: var(--label-color);
     padding: 0;
@@ -14,7 +14,7 @@
   }
 </style>
 {#if showKey && key}
-  <label class:spaced={isParentExpanded} on:click>
+  <div class:spaced={isParentExpanded} on:click>
     <span>{key}{colon}</span>
-  </label>
+  </div>
 {/if}
