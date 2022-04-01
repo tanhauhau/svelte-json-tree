@@ -1,6 +1,6 @@
 {
   "name": "svelte-json-tree",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Svelte JSON Viewer Component",
   "author": "Tan Li Hau <lhtan93@gmail.com>",
   "license": "MIT",
