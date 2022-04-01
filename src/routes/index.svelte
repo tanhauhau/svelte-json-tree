@@ -1,5 +1,5 @@
 <script>
-  import JsonTree from '../src/Root.svelte';
+  import JsonTree from '$lib';
   const placeholder = 'Type anything, eg: {\"foo\": \"1\"}, function foo(a,b) { return a + b; }, ..."'
   let value = '';
   let jsonValue;
