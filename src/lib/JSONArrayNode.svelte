@@ -1,28 +1,19 @@
 <script>
-  import JSONNested from './JSONNested.svelte';
+	import JSONNested from './JSONNested.svelte';
 
-  export let key, value, isParentExpanded, isParentArray;
-  export let expanded = false;
-  const filteredKey = new Set(['length']);
+	export let value;
+	const filteredKey = new Set(['length']);
 
-  $: keys = Object.getOwnPropertyNames(value);
-  $: previewKeys = keys.filter(key => !filteredKey.has(key));
+	$: keys = Object.getOwnPropertyNames(value);
+	$: previewKeys = keys.filter((key) => !filteredKey.has(key));
 
-  function getValue(key) {
-    return value[key];
-  }
-
+	function getValue(key) {
+		return value[key];
+	}
 </script>
-<JSONNested
-  {key}
-  {expanded}
-  {isParentExpanded}
-  {isParentArray}
-  isArray={true}
-  {keys}
-  {previewKeys}
-  {getValue}
-  label="Array({value.length})"
-  bracketOpen="["
-  bracketClose="]"
-/>
+
+<JSONNested isArray {keys} {getValue} {previewKeys} bracketOpen="[" bracketClose="]">
+	<svelte:fragment slot="summary">Array({value.length})</svelte:fragment>
+	<svelte:fragment slot="label">({value.length})</svelte:fragment>
+	<slot name="key" slot="key" />
+</JSONNested>

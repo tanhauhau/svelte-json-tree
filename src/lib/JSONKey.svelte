@@ -1,20 +1,20 @@
 <script>
-  export let key, isParentExpanded, isParentArray = false, colon = ':';
+	import { useState } from './utils/context';
 
-  $: showKey = (isParentExpanded || !isParentArray || key != +key);
+	const { isParentExpanded } = useState();
 </script>
+
+<div class:spaced={$isParentExpanded} on:click>
+	<slot name="key" />
+</div>
+
 <style>
-  div {
-    display: inline-block;
-    color: var(--label-color);
-    padding: 0;
-  }
-  .spaced {
-    padding-right: var(--li-colon-space);
-  }
+	div {
+		display: inline-block;
+		color: var(--label-color);
+		padding: 0;
+	}
+	.spaced {
+		padding-right: var(--li-colon-space);
+	}
 </style>
-{#if showKey && key}
-  <div class:spaced={isParentExpanded} on:click>
-    <span>{key}{colon}</span>
-  </div>
-{/if}

@@ -1,35 +1,33 @@
 <script>
-  import JSONNested from './JSONNested.svelte';
-  import MapEntry from './utils/MapEntry'
+	import { useState } from './utils/context';
 
-  export let key, value, isParentExpanded, isParentArray, nodeType;
+	import JSONNested from './JSONNested.svelte';
+	import MapEntry from './utils/MapEntry';
+	import JsonNode from './JSONNode.svelte';
 
-  let keys = [];
+	export let value;
+	useState({ isParentArray: false });
 
-  $: {
-    let result = [];
-    let i = 0;
-    for(const entry of value) {
-      result.push([i++, new MapEntry(entry[0], entry[1])]);
-    }
-    keys = result;
-  }
-  function getKey(entry) {
-    return entry[0];
-  }
-  function getValue(entry) {
-    return entry[1];
-  }
+	let keys = [];
+
+	$: {
+		let result = [];
+		let i = 0;
+		for (const entry of value) {
+			result.push([i++, new MapEntry(entry[0], entry[1])]);
+		}
+		keys = result;
+	}
+
+	function getValue(entry) {
+		return entry[1];
+	}
 </script>
-<JSONNested
-  {key}
-  {isParentExpanded}
-  {isParentArray}
-  {keys}
-  {getKey}
-  {getValue}
-  label="{nodeType}({keys.length})"
-  colon=""
-  bracketOpen={'{'}
-  bracketClose={'}'}
-/>
+
+<JSONNested {keys} {getValue} bracketOpen={'{'} bracketClose={'}'}>
+	<svelte:fragment slot="summary">Map({keys.length})</svelte:fragment>
+	<svelte:fragment slot="label">Map({keys.length})</svelte:fragment>
+	<svelte:fragment slot="child_key" let:key><JsonNode value={key[1].key} />{' =>'}</svelte:fragment>
+	<svelte:fragment slot="child_key_expanded" let:key>{key[0]}:</svelte:fragment>
+	<slot name="key" slot="key" />
+</JSONNested>

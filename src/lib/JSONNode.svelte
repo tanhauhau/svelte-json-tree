@@ -1,65 +1,59 @@
-<script>
-  import JSONObjectNode from './JSONObjectNode.svelte';
-  import JSONArrayNode from './JSONArrayNode.svelte';
-  import JSONIterableArrayNode from './JSONIterableArrayNode.svelte';
-  import JSONIterableMapNode from './JSONIterableMapNode.svelte';
-  import JSONMapEntryNode from './JSONMapEntryNode.svelte';
-  import JSONValueNode from './JSONValueNode.svelte';
-  import ErrorNode from './ErrorNode.svelte';
-  import objType from './objType';
+<script lang="ts">
+	import JSONObjectNode from './JSONObjectNode.svelte';
+	import JSONArrayNode from './JSONArrayNode.svelte';
+	import JSONIterableArrayNode from './JSONIterableArrayNode.svelte';
+	import JSONIterableMapNode from './JSONIterableMapNode.svelte';
+	import JSONMapEntryNode from './JSONMapEntryNode.svelte';
+	import JSONValueNode from './JSONValueNode.svelte';
+	import ErrorNode from './ErrorNode.svelte';
+	import objType from './objType';
+	import { useState } from './utils/context';
+	import { writable } from 'svelte/store';
 
-  export let key, value, isParentExpanded, isParentArray;
-  $: nodeType = objType(value);
-  $: componentType = getComponent(nodeType);
-  $: valueGetter = getValueGetter(nodeType);
+	export let value;
+	const nodeType = writable<string>();
+	$: $nodeType = objType(value);
+	$: [componentType, props] = getComponentAndProps($nodeType, value);
 
-  function getComponent(nodeType) {
-    switch (nodeType) {
-      case 'Object':
-        return JSONObjectNode;
-      case 'Error':
-        return ErrorNode;
-      case 'Array':
-        return JSONArrayNode;
-      case 'Iterable':
-      case 'Map':
-      case 'Set':
-        return typeof value.set === 'function' ? JSONIterableMapNode : JSONIterableArrayNode;
-      case 'MapEntry':
-        return JSONMapEntryNode;
-      default:
-        return JSONValueNode;
-    }
-  }
+	useState({ parentNodeType: nodeType });
 
-  function getValueGetter(nodeType) {
-    switch (nodeType) {
-      case 'Object':
-      case 'Error':
-      case 'Array':
-      case 'Iterable':
-      case 'Map':
-      case 'Set':
-      case 'MapEntry':
-      case 'Number':
-        return undefined;
-      case 'String':
-        return raw => `"${raw}"`;
-      case 'Boolean':
-        return raw => (raw ? 'true' : 'false');
-      case 'Date':
-        return raw => raw.toISOString();
-      case 'Null':
-        return () => 'null';
-      case 'Undefined':
-        return () => 'undefined';
-      case 'Function':
-      case 'Symbol':
-        return raw => raw.toString();
-      default:
-        return () => `<${nodeType}>`;
-    }
-  }
+	function getComponentAndProps(nodeType, value) {
+		switch (nodeType) {
+			case 'Object':
+				return [JSONObjectNode];
+			case 'Error':
+				return [ErrorNode];
+			case 'Array':
+				return [JSONArrayNode];
+			case 'Map':
+				return [JSONIterableMapNode];
+			case 'Iterable':
+			// ???
+			case 'Set':
+				return [JSONIterableArrayNode, { nodeType }];
+			case 'MapEntry':
+				return [JSONMapEntryNode];
+			case 'Number':
+				return [JSONValueNode, { nodeType }];
+			case 'String':
+				return [JSONValueNode, { nodeType, value: `"${value}"` }];
+			case 'Boolean':
+				return [JSONValueNode, { nodeType, value: value ? 'true' : 'false' }];
+			case 'Date':
+				return [JSONValueNode, { nodeType, value: value.toISOString() }];
+			case 'Null':
+				return [JSONValueNode, { nodeType, value: 'null' }];
+			case 'Undefined':
+				return [JSONValueNode, { nodeType, value: 'undefined' }];
+			case 'Function':
+			case 'Symbol':
+				return [JSONValueNode, { nodeType, value: value.toString() }];
+			default:
+				return [JSONValueNode, { nodeType, value: `<${nodeType}>` }];
+		}
+	}
 </script>
 
-<svelte:component this={componentType} {key} {value} {isParentExpanded} {isParentArray} {nodeType} {valueGetter} />
+<svelte:component this={componentType} {value} {...props}>
+	<slot slot="key" name="key" />
+</svelte:component>
