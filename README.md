@@ -32,8 +32,8 @@ With Svelte:
     array: [1, 2, 3],
     bool: true,
     object: {
-      foo: 'bar'
-    }
+      foo: 'bar',
+    },
   };
 </script>
 
@@ -45,10 +45,10 @@ Without Svelte:
 ```js
 const JSONTree = require('svelte-json-tree');
 const jsonTree = new JSONTree({
-	target: document.body,
-	props: {
-		value: { "foo": "bar" }
-	}
+  target: document.body,
+  props: {
+    value: { foo: 'bar' },
+  },
 });
 
 // update value

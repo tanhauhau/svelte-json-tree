@@ -1,31 +1,31 @@
 <script lang="ts">
-	export let value: unknown, nodeType: string;
+  export let value: unknown, nodeType: string;
 </script>
 
 <span class={nodeType}>
-	{value}
+  {value}
 </span>
 
 <style>
-	.Date {
-		color: var(--date-color);
-	}
-	.BigInt {
-		color: var(--number-color);
-	}
-	.Number {
-		color: var(--number-color);
-	}
-	.Boolean {
-		color: var(--boolean-color);
-	}
-	.Null {
-		color: var(--null-color);
-	}
-	.Undefined {
-		color: var(--undefined-color);
-	}
-	.Symbol {
-		color: var(--symbol-color);
-	}
+  .Date {
+    color: var(--date-color);
+  }
+  .BigInt {
+    color: var(--number-color);
+  }
+  .Number {
+    color: var(--number-color);
+  }
+  .Boolean {
+    color: var(--boolean-color);
+  }
+  .Null {
+    color: var(--null-color);
+  }
+  .Undefined {
+    color: var(--undefined-color);
+  }
+  .Symbol {
+    color: var(--symbol-color);
+  }
 </style>

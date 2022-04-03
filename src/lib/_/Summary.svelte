@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { useState } from './utils/context';
+  import { useState } from './utils/context';
 
-	useState({ displayMode: 'summary' });
+  useState({ displayMode: 'summary' });
 </script>
 
 <slot />

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { writable } from 'svelte/store';
+  import { writable } from 'svelte/store';
 
-	import { useState } from './utils/context';
+  import { useState } from './utils/context';
 
-	export let expanded;
+  export let expanded;
 
-	const expandable = writable(false);
-	useState({ expanded, expandable });
+  const expandable = writable(false);
+  useState({ expanded, expandable });
 </script>
 
 <slot />
