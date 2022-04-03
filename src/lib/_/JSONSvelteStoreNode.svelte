@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 	import JSONNested from './JSONNested.svelte';
 	import JSONNode from './JSONNode.svelte';
 	import PreviewList from './PreviewList.svelte';
+	import type { Writable, Readable } from 'svelte/store';
 
-	export let value;
+	export let value: Writable<unknown> | Readable<unknown>;
 
 	const STORE_VALUE = '$value';
 
@@ -12,9 +13,9 @@
 	$: previewKeys = objectKeys.slice(0, 5);
 
 	$: storeValue = $value;
-	$: isWritableStore = typeof value.set === 'function';
+	$: isWritableStore = typeof (value as Writable<unknown>).set === 'function';
 
-	function getValue(key) {
+	function getValue(key: string) {
 		if (key === STORE_VALUE) return storeValue;
 		return value[key];
 	}

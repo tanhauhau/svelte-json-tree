@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
 	import JSONNested from './JSONNested.svelte';
 	import JSONNode from './JSONNode.svelte';
 	import PreviewList from './PreviewList.svelte';
 
-	export let value;
+	export let value: Array<unknown>;
 
 	$: keys = Object.getOwnPropertyNames(value);
 	$: preview = value.slice(0, 5);

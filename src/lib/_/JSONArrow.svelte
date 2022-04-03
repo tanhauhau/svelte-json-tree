@@ -6,15 +6,15 @@
 </script>
 
 {#if $expandable}
-	<div
+	<span
 		class="container"
 		on:click={(event) => {
 			event.stopPropagation();
 			$expanded = !$expanded;
 		}}
 	>
-		<div class="arrow" class:expanded={$expanded}>{'\u25B6'}</div>
-	</div>
+		<span class="arrow" class:expanded={$expanded}>{'\u25B6'}</span>
+	</span>
 {/if}
 
 <style>
@@ -35,6 +35,7 @@
 		color: var(--arrow-sign);
 		user-select: none;
 		font-family: 'Courier New', Courier, monospace;
+    display: block;
 	}
 	.expanded {
 		transform: rotateZ(90deg) translateX(-3px);

@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
 	import { useState } from './utils/context';
 	import JSONNested from './JSONNested.svelte';
 	import JSONNode from './JSONNode.svelte';
 	import PreviewList from './PreviewList.svelte';
 
-	export let value;
+	export let value: Iterable<unknown>;
 	useState();
 
 	let indexes = [];

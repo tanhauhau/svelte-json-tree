@@ -1,19 +1,12 @@
 <script>
 	import JsonTree from '$lib';
-	import { writable } from 'svelte/store';
 	const placeholder = 'Type anything, eg: {"foo": "1"}, function foo(a,b) { return a + b; }, ..."';
 	let value = `{
   z: 1,
   y: '2',
   x: true,
-  a: [
-    11, 12, 13, 14, 15, 16, 17, 18, 19, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122,
-    123, 124, 125, 126, 127, 128, 129,
-  ],
-  b: new Set([
-    11, 12, 13, 14, 15, 16, 17, 18, 19, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122,
-    123, 124, 125, 126, 127, 128, 129,
-  ]),
+  a: [ 11, 12, { b: 13, c: "d" }, 14, [1, 2] ],
+  b: new Set([11, 12, 13]),
   c: new Map([
     ['1', '1'],
     [2, '2'],
@@ -24,83 +17,27 @@
     [null, null],
     [Infinity, Infinity],
     ['9', '9'],
-    [11, '11'],
-    [12, '12'],
-    [13, '13'],
-    [14, '14'],
-    [15, '15'],
-    [16, '16'],
-    [17, '17'],
-    [18, '18'],
-    [19, '19'],
-    [20, '20'],
-    [21, '21'],
-    [22, '22'],
-    [23, '23'],
-    [24, '24'],
-    [25, '25'],
-    [26, '26'],
-    [27, '27'],
-    [28, '28'],
-    [29, '29'],
   ]),
   d: { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10, k: 11, l: 12, m: 13, n: 14, o: 15, p: 16, q: 17, r: 18, s: 19, t: 20, u: 21, v: 22, w: 23, x: 24, y: 25, z: 26 },
-  e: { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10, k: 11, l: 12, m: 13, n: 14, o: 15, p: 16, q: 17, r: 18, s: 19, t: 20, u: 21, v: 22, w: 23, x: 24, y: 25, z: 26 },
-  f: { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10, k: 11, l: 12, m: 13, n: 14, o: 15, p: 16, q: 17, r: 18, s: 19, t: 20, u: 21, v: 22, w: 23, x: 24, y: 25, z: 26 },
-  g: { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10, k: 11, l: 12, m: 13, n: 14, o: 15, p: 16, q: 17, r: 18, s: 19, t: 20, u: 21, v: 22, w: 23, x: 24, y: 25, z: 26 },
-  h: { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10, k: 11, l: 12, m: 13, n: 14, o: 15, p: 16, q: 17, r: 18, s: 19, t: 20, u: 21, v: 22, w: 23, x: 24, y: 25, z: 26 },
-  i: { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10, k: 11, l: 12, m: 13, n: 14, o: 15, p: 16, q: 17, r: 18, s: 19, t: 20, u: 21, v: 22, w: 23, x: 24, y: 25, z: 26 },
-  j: new Error("FOO"),
-  k: {
+  e: new Error("FOO"),
+  f: {
     a: new Error("bar"),
     b: [1,2,3],
     c: [new Error("c").stack, new Error("cc"), new Error("dd")],
   },
+  g: /^[a-z]+(b)?$/,
 }
 `;
-	// value = `{ a: 1, b: { c: 3 } }`;
-	// value = `{ a: 1 }`;
-	value =
-		'{re: function () {}, f: function (a) { return a + 1 }, g: function (a, b) { return a + b }, h: function (a, b, c, ...d) { return a + b + c+ d.length}, i: function (a, b, c, ...d) { return a + b + c+ d.length}.bind({a:1}, 2, 3) }';
 	let jsonValue;
 	let error = null;
 	$: {
 		try {
-			// jsonValue = new Function(`return ${value}`)();
+			jsonValue = new Function(`return ${value}`)();
 			error = null;
 		} catch (e) {
 			error = e;
 		}
 	}
-
-	const b = writable(33);
-
-	const f = Promise.reject(false);
-	f.catch(() => {});
-	class A {}
-	$: jsonValue = {
-		// a: async () => {
-		// 	return 1 + 2 + 3;
-		// },
-		// b: async function* (a) {
-		// 	return (await 1) + 2 + 3;
-		// },
-		// c: ({ a = 1, d: [e, f = 2] }) => {},
-		// d: function* d() {},
-		// e: function () {},
-		// f: function ff() {},
-		// g: () => 'g',
-		// h: async function h() {},
-		// k: writable('1'),
-		// l: function foo(a,b,c,d,e,f,g){a+b+c+d+e+f+g+1000000000000000000000000000000000000000000000000000000000000000000000000000000000;},
-		// o: 1001312312312312312312312313n,
-		// l: new Date(),
-		// j: new ArrayBuffer(10),
-		a: globalThis,
-		b: /^A/m,
-		c: NaN
-	};
-	$: console.log(jsonValue);
 </script>
 
 <div class="container">

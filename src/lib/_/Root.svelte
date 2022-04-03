@@ -11,7 +11,7 @@
 		root: true
 	});
 
-	export let value;
+	export let value: unknown;
 </script>
 
 <ul>
@@ -32,8 +32,8 @@
 		--null-color: var(--json-tree-null-color, #8d8d8d);
 		--undefined-color: var(--json-tree-undefined-color, #8d8d8d);
 		--date-color: var(--json-tree-date-color, #8d8d8d);
-    --internal-color: var(--json-tree-internal-color, grey);
-    --regex-color: var(--json-tree-regex-color, var(--string-color));
+		--internal-color: var(--json-tree-internal-color, grey);
+		--regex-color: var(--json-tree-regex-color, var(--string-color));
 		--li-identation: var(--json-tree-li-indentation, 1em);
 		--li-line-height: var(--json-tree-li-line-height, 1.3);
 		--li-colon-space: 0.3em;

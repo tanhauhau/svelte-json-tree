@@ -64,6 +64,7 @@
 			case 'Int16Array':
 			case 'Int32Array':
 			case 'Uint8Array':
+			case 'Uint8ClampedArray':
 			case 'Uint16Array':
 			case 'Uint32Array':
 				return [TypedArrayNode, { nodeType }];

@@ -1,21 +1,30 @@
-<script>
+<script lang="ts">
+	import { onMount } from 'svelte';
 	import JSONArrow from './JSONArrow.svelte';
 	import { useState } from './utils/context';
-	import { useExpand } from './utils/expand';
 	import { writable } from 'svelte/store';
 	import Summary from './Summary.svelte';
 	import Expandable from './Expandable.svelte';
 
-	export let keys;
-	export let shouldShowColon = undefined;
+	export let keys: string[];
+	export let shouldShowColon: boolean = undefined;
 
-	export let defaultExpanded = false;
+	export let defaultExpanded: boolean = false;
 	const { isParentExpanded, displayMode, root, expanded, expandable } = useState({ root: false }, { expandable: true });
 	$expandable = true;
-	let toggleExpand;
+
 	if (displayMode !== 'summary') {
-		({ toggleExpand } = useExpand(isParentExpanded, expanded, defaultExpanded, keys));
+		onMount(() => {
+			return isParentExpanded.subscribe((value) => {
+				if (!value) expanded.set(false);
+				else expanded.set(defaultExpanded);
+			});
+		});
 	}
+	function toggleExpand() {
+		$expanded = !$expanded;
+	}
+
 	$: child_expanded = keys.map(() => writable(false));
 </script>
 

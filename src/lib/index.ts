@@ -1,0 +1,1 @@
+export { default } from "./_/Root.svelte"

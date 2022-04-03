@@ -1,5 +1,5 @@
-<script>
-	export let value, nodeType;
+<script lang="ts">
+	export let value: unknown, nodeType: string;
 </script>
 
 <span class={nodeType}>

@@ -1,8 +1,8 @@
-<script>
-	export let list;
-	export let hasMore;
-	export let prefix = undefined;
-	export let postfix = undefined;
+<script lang="ts">
+	export let list: Array<unknown>;
+	export let hasMore: boolean;
+	export let prefix: string = undefined;
+	export let postfix: string = undefined;
 </script>
 
 {#if prefix}<span>{prefix}</span>{/if}

@@ -1,10 +1,21 @@
-<script>
+<script lang="ts">
 	import JSONNested from './JSONNested.svelte';
 	import JSONNode from './JSONNode.svelte';
 	import PreviewList from './PreviewList.svelte';
 
-	export let value;
-	export let nodeType;
+	export let value:
+		| Int8Array
+		| Uint8Array
+		| Uint8ClampedArray
+		| Int16Array
+		| Uint16Array
+		| Int32Array
+		| Uint32Array
+		| Float32Array
+		| Float64Array
+		| BigInt64Array
+		| BigUint64Array;
+	export let nodeType: string;
 
 	const TO_STRING_TAG = 'Symbol(Symbol.toStringTag)';
 	const internalKeys = ['buffer', 'byteLength', 'byteOffset', 'length', TO_STRING_TAG];

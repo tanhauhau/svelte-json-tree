@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 	import JSONNested from './JSONNested.svelte';
 	import JSONNode from './JSONNode.svelte';
 	import PreviewList from './PreviewList.svelte';
 
-	export let value, nodeType;
+	export let value: Iterable<unknown>;
+	export let nodeType: string;
 
 	let indexes = [];
 	let items = [];

@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 	import JsonNode from './JSONNode.svelte';
 	import { useState } from './utils/context';
 
-	export let stack;
+	export let stack: string[];
 	const { expanded } = useState();
 </script>
 

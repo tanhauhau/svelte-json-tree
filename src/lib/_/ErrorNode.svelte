@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
 	import ErrorStack from './ErrorStack.svelte';
 	import JsonNested from './JSONNested.svelte';
 	import JSONNode from './JSONNode.svelte';
 
-	export let value;
+	export let value: Error;
 
 	$: stack = value.stack.split('\n');
 </script>

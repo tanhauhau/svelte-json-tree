@@ -32,6 +32,7 @@
 		if (isClass) return `class ${isClass}`;
 		return (isAsync ? 'async ' : '') + 'ƒ' + (isGenerator ? '*' : '');
 	}
+
 	function getPreview2({ isAsync, isArrow, fnName, args }) {
 		return (isArrow && isAsync ? 'async' : '') + ' ' + (fnName ?? '') + args + (isArrow ? ' => …' : '');
 	}
