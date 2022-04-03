@@ -1,10 +1,11 @@
 <script lang="ts">
-	import type { Writable } from 'svelte/store';
+	import { useState } from './utils/context';
 
-	export let expanded: Writable<boolean>;
+	const { expanded: _expanded, expandable } = useState();
+	export let expanded = _expanded;
 </script>
 
-{#if $expanded !== undefined}
+{#if $expandable}
 	<div
 		class="container"
 		on:click={(event) => {

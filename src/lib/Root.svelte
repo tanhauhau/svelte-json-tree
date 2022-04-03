@@ -1,9 +1,12 @@
 <script lang="ts">
 	import JSONNode from './JSONNode.svelte';
 	import { useState } from './utils/context';
-	import { readable } from 'svelte/store';
+	import { readable, writable } from 'svelte/store';
+	import Expandable from './Expandable.svelte';
 
+	const expanded = writable(true);
 	useState({
+		expanded,
 		isParentExpanded: readable(true),
 		root: true
 	});
@@ -12,7 +15,9 @@
 </script>
 
 <ul>
-	<JSONNode {value} />
+	<Expandable {expanded}>
+		<JSONNode {value} />
+	</Expandable>
 </ul>
 
 <style>
@@ -27,6 +32,8 @@
 		--null-color: var(--json-tree-null-color, #8d8d8d);
 		--undefined-color: var(--json-tree-undefined-color, #8d8d8d);
 		--date-color: var(--json-tree-date-color, #8d8d8d);
+    --internal-color: var(--json-tree-internal-color, grey);
+    --regex-color: var(--json-tree-regex-color, var(--string-color));
 		--li-identation: var(--json-tree-li-indentation, 1em);
 		--li-line-height: var(--json-tree-li-line-height, 1.3);
 		--li-colon-space: 0.3em;
@@ -47,7 +54,7 @@
 	ul {
 		margin-left: var(--li-identation);
 	}
-	ul :global(span) {
+	ul {
 		cursor: default;
 	}
 </style>

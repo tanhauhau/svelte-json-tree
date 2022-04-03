@@ -5,7 +5,6 @@
 	import PreviewList from './PreviewList.svelte';
 
 	export let value;
-	export let expanded;
 	useState();
 
 	let indexes = [];
@@ -31,7 +30,7 @@
 	const ENTRIES = '[[Entries]]';
 </script>
 
-<JSONNested keys={[ENTRIES, 'size']} {expanded} shouldShowColon={(key) => key !== ENTRIES}>
+<JSONNested keys={[ENTRIES, 'size']} shouldShowColon={(key) => key !== ENTRIES}>
 	<svelte:fragment slot="summary">Map({keys.length})</svelte:fragment>
 	<svelte:fragment slot="preview">
 		<PreviewList list={previewKeys} hasMore={previewKeys.length < value.size} prefix={`Map(${keys.length}) {`} postfix="}">
@@ -42,29 +41,29 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="item_key" let:key><span class:label={key === ENTRIES}>{key}</span></svelte:fragment>
-	<svelte:fragment slot="item_value" let:key let:expanded>
-		{#if key === ENTRIES}<JSONNested keys={indexes} defaultExpanded {expanded}>
+	<svelte:fragment slot="item_value" let:key>
+		{#if key === ENTRIES}<JSONNested keys={indexes} defaultExpanded>
 				<svelte:fragment slot="item_key" let:key={index}>{index}</svelte:fragment>
-				<svelte:fragment slot="item_value" let:key={index} let:expanded>
-					<JSONNested keys={['key', 'value']} {expanded}>
+				<svelte:fragment slot="item_value" let:key={index}>
+					<JSONNested keys={['key', 'value']}>
 						<svelte:fragment slot="preview"
 							>{'{ '}<JSONNode value={keys[index]} />{' => '}<JSONNode value={values[index]} />{' }'}</svelte:fragment
 						>
 						<svelte:fragment slot="item_key" let:key={name}>{name}</svelte:fragment>
-						<svelte:fragment slot="item_value" let:key={name} let:expanded
-							><JSONNode value={name === 'key' ? keys[index] : values[index]} {expanded} /></svelte:fragment
+						<svelte:fragment slot="item_value" let:key={name}
+							><JSONNode value={name === 'key' ? keys[index] : values[index]} /></svelte:fragment
 						>
 					</JSONNested>
 				</svelte:fragment>
 			</JSONNested>
 		{:else}
-			<JSONNode value={value[key]} {expanded} />
+			<JSONNode value={value[key]} />
 		{/if}
 	</svelte:fragment>
 </JSONNested>
 
 <style>
 	.label {
-		color: grey;
+		color: var(--internal-color);
 	}
 </style>

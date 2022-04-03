@@ -7,11 +7,11 @@
 </span>
 
 <style>
-	.String {
-		color: var(--string-color);
-	}
 	.Date {
 		color: var(--date-color);
+	}
+	.BigInt {
+		color: var(--number-color);
 	}
 	.Number {
 		color: var(--number-color);
@@ -24,10 +24,6 @@
 	}
 	.Undefined {
 		color: var(--undefined-color);
-	}
-	.Function {
-		color: var(--function-color);
-		font-style: italic;
 	}
 	.Symbol {
 		color: var(--symbol-color);

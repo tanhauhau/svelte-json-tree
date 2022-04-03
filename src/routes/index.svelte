@@ -1,7 +1,8 @@
 <script>
-  import JsonTree from '$lib';
-  const placeholder = 'Type anything, eg: {\"foo\": \"1\"}, function foo(a,b) { return a + b; }, ..."'
-  let value = `{
+	import JsonTree from '$lib';
+	import { writable } from 'svelte/store';
+	const placeholder = 'Type anything, eg: {"foo": "1"}, function foo(a,b) { return a + b; }, ..."';
+	let value = `{
   z: 1,
   y: '2',
   x: true,
@@ -57,73 +58,107 @@
   },
 }
 `;
-  let jsonValue;
-  let error = null;
-  $: {
-    try {
-      jsonValue = new Function(`return ${value}`)();
-      error = null;
-    } catch (e) {
-      error = e;
-    }
-  }
-  $: console.log(jsonValue);
+	// value = `{ a: 1, b: { c: 3 } }`;
+	// value = `{ a: 1 }`;
+	value =
+		'{re: function () {}, f: function (a) { return a + 1 }, g: function (a, b) { return a + b }, h: function (a, b, c, ...d) { return a + b + c+ d.length}, i: function (a, b, c, ...d) { return a + b + c+ d.length}.bind({a:1}, 2, 3) }';
+	let jsonValue;
+	let error = null;
+	$: {
+		try {
+			// jsonValue = new Function(`return ${value}`)();
+			error = null;
+		} catch (e) {
+			error = e;
+		}
+	}
+
+	const b = writable(33);
+
+	const f = Promise.reject(false);
+	f.catch(() => {});
+	class A {}
+	$: jsonValue = {
+		// a: async () => {
+		// 	return 1 + 2 + 3;
+		// },
+		// b: async function* (a) {
+		// 	return (await 1) + 2 + 3;
+		// },
+		// c: ({ a = 1, d: [e, f = 2] }) => {},
+		// d: function* d() {},
+		// e: function () {},
+		// f: function ff() {},
+		// g: () => 'g',
+		// h: async function h() {},
+		// k: writable('1'),
+		// l: function foo(a,b,c,d,e,f,g){a+b+c+d+e+f+g+1000000000000000000000000000000000000000000000000000000000000000000000000000000000;},
+		// o: 1001312312312312312312312313n,
+		// l: new Date(),
+		// j: new ArrayBuffer(10),
+		a: globalThis,
+		b: /^A/m,
+		c: NaN
+	};
+	$: console.log(jsonValue);
 </script>
-<style>
-  :global(body) {
-    margin: 0;
-    padding: 0;
-  }
-  .container {
-    display: grid;
-    grid-template-areas: "title title" "editor preview";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    height: 100vh;
-    width: 100vw;
-  }
-  .title {
-    grid-area: title;
-    margin: 0;
-    padding: 4px 8px;
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-  }
-  .preview {
-    grid-area: preview;
-    padding: 8px;
-  }
-  .editor {
-    grid-area: editor;
-  }
-  .error {
-    border: 2px solid red;
-  }
-  textarea {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-  }
-  a {
-    display: flex;
-  }
-</style>
+
 <div class="container">
-  <h1 class="title">svelte-json-tree
-    &nbsp;
-    <a target="_blank" href="https://npmjs.com/svelte-json-tree">
-      <img alt="npm-version" src="https://img.shields.io/npm/v/svelte-json-tree.svg" />
-    </a>
-    &nbsp;
-    <a target="_blank" href="https://github.com/tanhauhau/svelte-json-tree">
-      <img alt="github" src="https://img.shields.io/github/stars/tanhauhau/svelte-json-tree?style=social" />
-    </a>
-  </h1>
-  <div class="editor">
-    <textarea bind:value class:error {placeholder}></textarea>
-  </div>
-  <div class="preview">
-    <JsonTree value={jsonValue} />
-  </div>
+	<h1 class="title">
+		svelte-json-tree &nbsp;
+		<a target="_blank" href="https://npmjs.com/svelte-json-tree">
+			<img alt="npm-version" src="https://img.shields.io/npm/v/svelte-json-tree.svg" />
+		</a>
+		&nbsp;
+		<a target="_blank" href="https://github.com/tanhauhau/svelte-json-tree">
+			<img alt="github" src="https://img.shields.io/github/stars/tanhauhau/svelte-json-tree?style=social" />
+		</a>
+	</h1>
+	<div class="editor">
+		<textarea bind:value class:error {placeholder} />
+	</div>
+	<div class="preview">
+		<JsonTree value={jsonValue} />
+	</div>
 </div>
+
+<style>
+	:global(body) {
+		margin: 0;
+		padding: 0;
+	}
+	.container {
+		display: grid;
+		grid-template-areas: 'title title' 'editor preview';
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto 1fr;
+		height: 100vh;
+		width: 100vw;
+	}
+	.title {
+		grid-area: title;
+		margin: 0;
+		padding: 4px 8px;
+		display: flex;
+		align-items: center;
+		font-size: 18px;
+	}
+	.preview {
+		grid-area: preview;
+		padding: 8px;
+	}
+	.editor {
+		grid-area: editor;
+	}
+	.error {
+		border: 2px solid red;
+	}
+	textarea {
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+	}
+	a {
+		display: flex;
+	}
+</style>

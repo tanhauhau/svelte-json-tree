@@ -5,12 +5,15 @@
 	import JSONIterableMapNode from './JSONIterableMapNode.svelte';
 	import JSONValueNode from './JSONValueNode.svelte';
 	import ErrorNode from './ErrorNode.svelte';
-	import objType from './objType';
-	import { useState } from './utils/context';
+	import objType from './utils/objType';
 	import { writable } from 'svelte/store';
+	import JsonStringNode from './JSONStringNode.svelte';
+	import JsonFunctionNode from './JSONFunctionNode.svelte';
+	import JsonSvelteStoreNode from './JSONSvelteStoreNode.svelte';
+	import TypedArrayNode from './TypedArrayNode.svelte';
+	import RegExpNode from './RegExpNode.svelte';
 
-	export let value;
-	export let expanded = undefined;
+	export let value: unknown;
 	const nodeType = writable<string>();
 	$: $nodeType = objType(value);
 	$: [componentType, props] = getComponentAndProps($nodeType, value);
@@ -18,46 +21,57 @@
 	function getComponentAndProps(nodeType, value) {
 		switch (nodeType) {
 			case 'Object':
-				return [JSONObjectNode, { expanded }];
+				if (typeof value.subscribe === 'function') return [JsonSvelteStoreNode];
+				return [JSONObjectNode];
 			case 'Error':
-				return [ErrorNode, { expanded }];
+				return [ErrorNode];
 			case 'Array':
-				return [JSONArrayNode, { expanded }];
+				return [JSONArrayNode];
 			case 'Map':
-				return [JSONIterableMapNode, { expanded }];
+				return [JSONIterableMapNode];
 			case 'Iterable':
 			// ???
 			case 'Set':
-				return [JSONIterableArrayNode, { nodeType, expanded }];
+				return [JSONIterableArrayNode, { nodeType }];
 			case 'Number':
-				disallowExpanding();
 				return [JSONValueNode, { nodeType }];
 			case 'String':
-				disallowExpanding();
-				return [JSONValueNode, { nodeType, value: `"${value}"` }];
+				return [JsonStringNode];
 			case 'Boolean':
-				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: value ? 'true' : 'false' }];
 			case 'Date':
-				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: value.toISOString() }];
 			case 'Null':
-				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: 'null' }];
 			case 'Undefined':
-				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: 'undefined' }];
 			case 'Function':
+			case 'AsyncFunction':
+			case 'AsyncGeneratorFunction':
+			case 'GeneratorFunction':
+				return [JsonFunctionNode];
 			case 'Symbol':
-				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: value.toString() }];
+			case 'BigInt':
+				return [JSONValueNode, { nodeType, value: String(value) + 'n' }];
+			case 'ArrayBuffer':
+				return [JSONValueNode, { nodeType, value: `ArrayBuffer(${value.byteLength})` }];
+			case 'BigInt64Array':
+			case 'BigUint64Array':
+			case 'Float32Array':
+			case 'Float64Array':
+			case 'Int8Array':
+			case 'Int16Array':
+			case 'Int32Array':
+			case 'Uint8Array':
+			case 'Uint16Array':
+			case 'Uint32Array':
+				return [TypedArrayNode, { nodeType }];
+			case 'RegExp':
+				return [RegExpNode];
 			default:
-				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: `<${nodeType}>` }];
 		}
-	}
-	function disallowExpanding() {
-		if (expanded) $expanded = undefined;
 	}
 </script>
 

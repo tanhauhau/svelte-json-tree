@@ -1,8 +1,9 @@
 <script>
 	import JsonNode from './JSONNode.svelte';
+	import { useState } from './utils/context';
 
 	export let stack;
-	export let expanded;
+	const { expanded } = useState();
 </script>
 
 <span on:click={() => ($expanded = !$expanded)}>
@@ -12,7 +13,7 @@
 			<span class:indent={index > 0}><JsonNode value={line + (appendNewLine ? '\\n' : '')} />{appendNewLine ? ' +' : ''}</span><br />
 		{/each}
 	{:else}
-		<span><JsonNode value={stack[0] + '...'} /></span>
+		<span><JsonNode value={stack[0] + '…'} /></span>
 	{/if}
 </span>
 

@@ -1,7 +1,7 @@
 import { onMount } from 'svelte';
 import type { Readable, Writable } from 'svelte/store';
 
-export function useExpand(isParentExpanded: Readable<boolean>, expanded: Writable<boolean>, defaultValue?: boolean) {
+export function useExpand(isParentExpanded: Readable<boolean>, expanded: Writable<boolean>, defaultValue?: boolean, debug) {
   onMount(() => {
     return isParentExpanded.subscribe((value) => {
       if (!value) expanded.set(false);

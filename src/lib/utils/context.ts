@@ -1,16 +1,20 @@
 import { getContext, setContext } from 'svelte';
-import type { Readable } from 'svelte/store';
+import type { Readable, Writable } from 'svelte/store';
 
 const STATE = {};
 type State = {
-  colon: string,
   isParentExpanded: Readable<boolean>,
-  displayMode: string,
+  expanded: Writable<boolean>,
+  expandable: Writable<boolean>,
+  displayMode: 'summary' | undefined,
   root: boolean,
 };
 
-export function useState(newState?: Partial<State>): State {
+export function useState(newState?: Partial<State>, opts?: { expandable?: boolean }): State {
   const currentState = getContext<State>(STATE);
-  setContext(STATE, { ...currentState, ...newState });
+  const nextState = { ...currentState, ...newState };
+  if (opts?.expandable) nextState.isParentExpanded = nextState.expanded;
+
+  setContext(STATE, nextState);
   return currentState;
 }
