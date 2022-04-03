@@ -5,8 +5,7 @@
 
 	useState({
 		isParentExpanded: readable(true),
-		isParentArray: false,
-		parentNodeType: readable(undefined)
+		root: true
 	});
 
 	export let value;
@@ -43,5 +42,12 @@
 	ul :global(ul) {
 		padding: 0;
 		margin: 0;
+	}
+
+	ul {
+		margin-left: var(--li-identation);
+	}
+	ul :global(span) {
+		cursor: default;
 	}
 </style>

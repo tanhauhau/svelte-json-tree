@@ -3,7 +3,6 @@
 	import JSONArrayNode from './JSONArrayNode.svelte';
 	import JSONIterableArrayNode from './JSONIterableArrayNode.svelte';
 	import JSONIterableMapNode from './JSONIterableMapNode.svelte';
-	import JSONMapEntryNode from './JSONMapEntryNode.svelte';
 	import JSONValueNode from './JSONValueNode.svelte';
 	import ErrorNode from './ErrorNode.svelte';
 	import objType from './objType';
@@ -11,49 +10,55 @@
 	import { writable } from 'svelte/store';
 
 	export let value;
+	export let expanded = undefined;
 	const nodeType = writable<string>();
 	$: $nodeType = objType(value);
 	$: [componentType, props] = getComponentAndProps($nodeType, value);
 
-	useState({ parentNodeType: nodeType });
-
 	function getComponentAndProps(nodeType, value) {
 		switch (nodeType) {
 			case 'Object':
-				return [JSONObjectNode];
+				return [JSONObjectNode, { expanded }];
 			case 'Error':
-				return [ErrorNode];
+				return [ErrorNode, { expanded }];
 			case 'Array':
-				return [JSONArrayNode];
+				return [JSONArrayNode, { expanded }];
 			case 'Map':
-				return [JSONIterableMapNode];
+				return [JSONIterableMapNode, { expanded }];
 			case 'Iterable':
 			// ???
 			case 'Set':
-				return [JSONIterableArrayNode, { nodeType }];
-			case 'MapEntry':
-				return [JSONMapEntryNode];
+				return [JSONIterableArrayNode, { nodeType, expanded }];
 			case 'Number':
+				disallowExpanding();
 				return [JSONValueNode, { nodeType }];
 			case 'String':
+				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: `"${value}"` }];
 			case 'Boolean':
+				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: value ? 'true' : 'false' }];
 			case 'Date':
+				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: value.toISOString() }];
 			case 'Null':
+				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: 'null' }];
 			case 'Undefined':
+				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: 'undefined' }];
 			case 'Function':
 			case 'Symbol':
+				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: value.toString() }];
 			default:
+				disallowExpanding();
 				return [JSONValueNode, { nodeType, value: `<${nodeType}>` }];
 		}
 	}
+	function disallowExpanding() {
+		if (expanded) $expanded = undefined;
+	}
 </script>
 
-<svelte:component this={componentType} {value} {...props}>
-	<slot slot="key" name="key" />
-</svelte:component>
+<svelte:component this={componentType} {value} {...props} />

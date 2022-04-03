@@ -1,17 +1,24 @@
 <script lang="ts">
-	import type { Readable } from 'svelte/store';
+	import type { Writable } from 'svelte/store';
 
-	export let expanded: Readable<boolean>;
+	export let expanded: Writable<boolean>;
 </script>
 
-<div class="container" on:click>
-	<div class="arrow" class:expanded={$expanded}>{'\u25B6'}</div>
-</div>
+{#if $expanded !== undefined}
+	<div
+		class="container"
+		on:click={(event) => {
+			event.stopPropagation();
+			$expanded = !$expanded;
+		}}
+	>
+		<div class="arrow" class:expanded={$expanded}>{'\u25B6'}</div>
+	</div>
+{/if}
 
 <style>
 	.container {
 		display: inline-block;
-		cursor: pointer;
 		transform: translate(calc(0px - var(--li-identation)), -50%);
 		position: absolute;
 		top: 50%;

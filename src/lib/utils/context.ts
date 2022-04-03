@@ -5,8 +5,8 @@ const STATE = {};
 type State = {
   colon: string,
   isParentExpanded: Readable<boolean>,
-  isParentArray: boolean,
-  parentNodeType: Readable<string>
+  displayMode: string,
+  root: boolean,
 };
 
 export function useState(newState?: Partial<State>): State {

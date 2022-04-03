@@ -1,33 +1,70 @@
 <script>
 	import { useState } from './utils/context';
-
 	import JSONNested from './JSONNested.svelte';
-	import MapEntry from './utils/MapEntry';
-	import JsonNode from './JSONNode.svelte';
+	import JSONNode from './JSONNode.svelte';
+	import PreviewList from './PreviewList.svelte';
 
 	export let value;
-	useState({ isParentArray: false });
+	export let expanded;
+	useState();
 
+	let indexes = [];
 	let keys = [];
+	let values = [];
 
 	$: {
-		let result = [];
+		let _indexes = [];
+		let _keys = [];
+		let _values = [];
 		let i = 0;
 		for (const entry of value) {
-			result.push([i++, new MapEntry(entry[0], entry[1])]);
+			_indexes.push(i++);
+			_keys.push(entry[0]);
+			_values.push(entry[1]);
 		}
-		keys = result;
+		indexes = _indexes;
+		keys = _keys;
+		values = _values;
 	}
+	$: previewKeys = Array.from(value.keys()).slice(0, 5);
 
-	function getValue(entry) {
-		return entry[1];
-	}
+	const ENTRIES = '[[Entries]]';
 </script>
 
-<JSONNested {keys} {getValue} bracketOpen={'{'} bracketClose={'}'}>
+<JSONNested keys={[ENTRIES, 'size']} {expanded} shouldShowColon={(key) => key !== ENTRIES}>
 	<svelte:fragment slot="summary">Map({keys.length})</svelte:fragment>
-	<svelte:fragment slot="label">Map({keys.length})</svelte:fragment>
-	<svelte:fragment slot="child_key" let:key><JsonNode value={key[1].key} />{' =>'}</svelte:fragment>
-	<svelte:fragment slot="child_key_expanded" let:key>{key[0]}:</svelte:fragment>
-	<slot name="key" slot="key" />
+	<svelte:fragment slot="preview">
+		<PreviewList list={previewKeys} hasMore={previewKeys.length < value.size} prefix={`Map(${keys.length}) {`} postfix="}">
+			<svelte:fragment slot="item" let:item>
+				<JSONNode value={item} />{' => '}<JSONNode value={value.get(item)} />
+			</svelte:fragment>
+		</PreviewList>
+	</svelte:fragment>
+
+	<svelte:fragment slot="item_key" let:key><span class:label={key === ENTRIES}>{key}</span></svelte:fragment>
+	<svelte:fragment slot="item_value" let:key let:expanded>
+		{#if key === ENTRIES}<JSONNested keys={indexes} defaultExpanded {expanded}>
+				<svelte:fragment slot="item_key" let:key={index}>{index}</svelte:fragment>
+				<svelte:fragment slot="item_value" let:key={index} let:expanded>
+					<JSONNested keys={['key', 'value']} {expanded}>
+						<svelte:fragment slot="preview"
+							>{'{ '}<JSONNode value={keys[index]} />{' => '}<JSONNode value={values[index]} />{' }'}</svelte:fragment
+						>
+						<svelte:fragment slot="item_key" let:key={name}>{name}</svelte:fragment>
+						<svelte:fragment slot="item_value" let:key={name} let:expanded
+							><JSONNode value={name === 'key' ? keys[index] : values[index]} {expanded} /></svelte:fragment
+						>
+					</JSONNested>
+				</svelte:fragment>
+			</JSONNested>
+		{:else}
+			<JSONNode value={value[key]} {expanded} />
+		{/if}
+	</svelte:fragment>
 </JSONNested>
+
+<style>
+	.label {
+		color: grey;
+	}
+</style>
