@@ -18,7 +18,7 @@
   $: $nodeType = objType(value);
   $: [componentType, props] = getComponentAndProps($nodeType, value);
 
-  function getComponentAndProps(nodeType, value) {
+  function getComponentAndProps(nodeType: string, value: any) {
     switch (nodeType) {
       case 'Object':
         if (typeof value.subscribe === 'function') return [JsonSvelteStoreNode];

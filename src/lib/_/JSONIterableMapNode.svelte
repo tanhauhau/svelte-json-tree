@@ -42,7 +42,7 @@
 
   <svelte:fragment slot="item_key" let:key><span class:label={key === ENTRIES}>{key}</span></svelte:fragment>
   <svelte:fragment slot="item_value" let:key>
-    {#if key === ENTRIES}<JSONNested keys={indexes} defaultExpanded>
+    {#if key === ENTRIES}<JSONNested keys={indexes} expandKey={index => keys[index]} defaultExpanded>
         <svelte:fragment slot="item_key" let:key={index}>{index}</svelte:fragment>
         <svelte:fragment slot="item_value" let:key={index}>
           <JSONNested keys={['key', 'value']}>

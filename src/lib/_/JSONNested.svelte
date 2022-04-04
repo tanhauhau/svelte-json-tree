@@ -9,12 +9,24 @@
 
   export let keys: string[];
   export let shouldShowColon: (key: string) => boolean = undefined;
+  export let expandKey = (key: string) => key;
 
   export let defaultExpanded = false;
-  const { isParentExpanded, displayMode, root, expanded, expandable } = useState({ root: false }, { expandable: true });
+  const { isParentExpanded, displayMode, root, expanded, expandable, keyPath, level, shouldExpandNode } = useState(
+    { root: false },
+    { expandable: true }
+  );
   $expandable = true;
 
   if (displayMode !== 'summary') {
+    // if not internally control to open
+    if (!defaultExpanded) {
+      const controlled = shouldExpandNode({ keyPath, level });
+      if (controlled !== undefined) {
+        defaultExpanded = controlled;
+      }
+    }
+
     onMount(() => {
       return isParentExpanded.subscribe((value) => {
         if (!value) expanded.set(false);
@@ -45,7 +57,7 @@
     <ul on:click|stopPropagation={toggleExpand}>
       {#each keys as key, index}
         <li class:indent={$expanded} on:click|stopPropagation={() => {}}>
-          <Expandable expanded={child_expanded[index]}>
+          <Expandable key={expandKey(key)} expanded={child_expanded[index]}>
             <span class="label" on:click={() => child_expanded[index].update((value) => !value)}>
               <JSONArrow /><slot name="item_key" {key} {index} />{!shouldShowColon || shouldShowColon(key) ? ':' : ''}
             </span><slot name="item_value" {key} {index} />

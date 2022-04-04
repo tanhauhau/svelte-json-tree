@@ -3,19 +3,27 @@
   import { useState } from './utils/context';
   import { readable, writable } from 'svelte/store';
   import Expandable from './Expandable.svelte';
+  import { getShouldExpandNode } from './utils/expand';
+
+  export let value: unknown;
+  export let defaultExpandedPaths: string[] = [];
+  export let defaultExpandedLevel: number = 0;
+
+  $: shouldExpandNode = getShouldExpandNode({ defaultExpandedPaths, defaultExpandedLevel });
 
   const expanded = writable(true);
   useState({
     expanded,
     isParentExpanded: readable(true),
     root: true,
+    shouldExpandNode: (opts) => shouldExpandNode(opts),
+    level: 0,
+    keyPath: [],
   });
-
-  export let value: unknown;
 </script>
 
 <ul>
-  <Expandable {expanded}>
+  <Expandable key="$" {expanded}>
     <JSONNode {value} />
   </Expandable>
 </ul>
