@@ -5,7 +5,7 @@
 
   export let value: () => void;
 
-  $: str = value.toString();
+  $: str = toString(value);
   $: ctx = parseFunction(str);
 
   function parseFunction(str: string) {
@@ -50,6 +50,23 @@
     return getValue(key);
   }
 
+  function toString(value: () => void) {
+    try {
+      return value.toString();
+    } catch {
+      switch (value.constructor.name) {
+        case 'AsyncFunction':
+          return 'async function () {}';
+        case 'AsyncGeneratorFunction':
+          return 'async function * () {}';
+        case 'GeneratorFunction:':
+          return 'function * () {}';
+        default:
+          return 'function () {}';
+      }
+    }
+  }
+
   $: keys = ['length', 'name', 'prototype', FUNCTION, PROTO].filter(filterKeys);
 </script>
 
@@ -59,7 +76,7 @@
     >{#if !ctx.isArrow}<span class="fn i">{getPreview1(ctx)}</span>{/if}{#if !ctx.isClass}<span class="i">{getPreview2(ctx)}</span
       >{/if}</svelte:fragment
   >
-  <svelte:fragment slot="item_key" let:key><span class:label={key === FUNCTION || key === PROTO}>{key}</span></svelte:fragment>
+  <svelte:fragment slot="item_key" let:key><span class:internal={key === FUNCTION || key === PROTO}>{key}</span></svelte:fragment>
   <svelte:fragment slot="item_value" let:key
     >{#if key === FUNCTION}<span class="i">{str}</span>{:else if key === 'prototype'}<JsonObjectNode
         value={getValue(key)}
@@ -70,11 +87,12 @@
 <style>
   .i {
     font-style: italic;
+    color: var(--function-color);
   }
   .fn {
     color: var(--function-color);
   }
-  .label {
+  .internal {
     color: var(--internal-color);
   }
 </style>

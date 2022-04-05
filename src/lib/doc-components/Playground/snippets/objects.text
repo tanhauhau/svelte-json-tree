@@ -1,0 +1,28 @@
+{
+    name: "svelte-json-tree",
+    license: "MIT",
+    elements: ["svelte", 123, false, true, null, undefined, 456n],
+    nested: {
+      taglines: [
+        { name: 'svelte', feature: 'write less code' },
+        { name: 'svelte', feature: 'no virtual dom' },
+        { name: 'svelte', feature: 'truly reactive' }
+      ],
+      tutorials: [
+        {
+          type: 'category',
+          label: '1. Introduction',
+          items: [
+            { id: 'basics', label: 'a. Basics' },
+            { id: 'adding-data', label: 'b. Adding data' },
+            { id: 'dynamic-attributes', label: 'c. Dynamic attributes' },
+          ],
+        },
+        {
+          type: 'category',
+          label: '18. Debugging',
+          items: [{ id: 'debug', label: 'a. The @debug tag' }],
+        },
+      ]
+    }
+  }

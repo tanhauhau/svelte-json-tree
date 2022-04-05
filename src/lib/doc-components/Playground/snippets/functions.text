@@ -1,0 +1,9 @@
+[
+    function sum (a, b) { return a + b },
+    async (promises) => await Promise.all(promises),
+    function *generator (a) {
+      while (a--) {
+        yield a;
+      }
+    }
+  ]

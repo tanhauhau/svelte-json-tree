@@ -10,12 +10,21 @@
 </script>
 
 <JSONNested {keys}>
-  <svelte:fragment slot="summary">{'{…}'}</svelte:fragment>
+  <svelte:fragment slot="summary"><span class="label">{'{…}'}</span></svelte:fragment>
   <svelte:fragment slot="preview">
     <PreviewList list={previewKeys} hasMore={previewKeys.length < keys.length} prefix={'{'} postfix={'}'}>
-      <svelte:fragment slot="item" let:item>{item}{': '}<JSONNode value={value[item]} /></svelte:fragment>
+      <svelte:fragment slot="item" let:item><span class="property">{item}</span><span class="label">{': '}</span><JSONNode value={value[item]} /></svelte:fragment>
     </PreviewList>
   </svelte:fragment>
-  <svelte:fragment slot="item_key" let:key>{key}</svelte:fragment>
+  <svelte:fragment slot="item_key" let:key><span class="property">{key}</span></svelte:fragment>
   <svelte:fragment slot="item_value" let:key><JSONNode value={value[key]} /></svelte:fragment>
 </JSONNested>
+
+<style>
+  .label {
+    color: var(--label-color);
+  }
+  .property {
+    color: var(--property-color);
+  }
+</style>

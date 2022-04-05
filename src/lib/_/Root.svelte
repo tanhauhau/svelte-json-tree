@@ -36,6 +36,7 @@
     --function-color: var(--json-tree-function-color, #112aa7);
     --number-color: var(--json-tree-number-color, #3029cf);
     --label-color: var(--json-tree-label-color, #871d8f);
+    --property-color: var(--json-tree-property-color, #000000);
     --arrow-color: var(--json-tree-arrow-color, #727272);
     --null-color: var(--json-tree-null-color, #8d8d8d);
     --undefined-color: var(--json-tree-undefined-color, #8d8d8d);

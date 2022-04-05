@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Writable, writable } from 'svelte/store';
+  import { type Writable, writable } from 'svelte/store';
 
   import { useState } from './utils/context';
 

@@ -32,7 +32,7 @@
     font-size: 0.75em;
     margin-left: 0;
     transition: 150ms;
-    color: var(--arrow-sign);
+    color: var(--arrow-color);
     user-select: none;
     font-family: 'Courier New', Courier, monospace;
     display: block;

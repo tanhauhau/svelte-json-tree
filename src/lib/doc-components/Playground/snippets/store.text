@@ -1,0 +1,5 @@
+[
+    writable(1),
+    readable({ a: 1 }),
+    derived(writable(1), $a => $a * 2),
+  ]

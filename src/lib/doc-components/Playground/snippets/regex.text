@@ -1,0 +1,4 @@
+{
+    regex: /^[a-z0-9]+/g,
+    case_insensitive: /^(?:[a-z0-9]+)foo.*?/i,
+  }

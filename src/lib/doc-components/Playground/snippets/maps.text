@@ -1,0 +1,30 @@
+new Map([
+    ["name", "svelte-json-tree"],
+    ["license", "MIT"],
+    ["elements", new Set(["svelte", 123, false, true, null, undefined, 456n])],
+    ["nested", new Map([
+      ["taglines", new Set([
+        { name: 'svelte', feature: 'write less code' },
+        { name: 'svelte', feature: 'no virtual dom' },
+        { name: 'svelte', feature: 'truly reactive' }
+      ])],
+      ["tutorials", new Set([
+        {
+          type: 'category',
+          label: '1. Introduction',
+          items: [
+            { id: 'basics', label: 'a. Basics' },
+            { id: 'adding-data', label: 'b. Adding data' },
+          ],
+        },
+        {
+          type: 'category',
+          label: '2. Reactivity',
+          items: [
+            { id: 'reactive-assignments', label: 'a. Assignments' },
+            { id: 'reactive-declarations', label: 'b. Declarations' },
+          ],
+        },
+      ])],
+    ])]
+  ])
