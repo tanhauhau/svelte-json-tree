@@ -222,6 +222,8 @@ Or use the UMD version
 </html>
 ```
 
+<div class="spacer" />
+
 <style>
   pre {
     /* In theory shiki will overwrite these, but this is to make sure there are defaults regardless */
