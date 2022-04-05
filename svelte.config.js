@@ -5,8 +5,9 @@ import mm from 'micromatch';
 import { readFileSync } from 'fs';
 import shiki from 'shiki';
 
+const dev = process.env.NODE_ENV === 'development';
+
 let highlighter;
-// const theme = JSON.parse(readFileSync('node_modules/shiki/themes/dracula.json', 'utf-8'));
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -27,10 +28,11 @@ const config = {
       },
     }),
   ],
-  paths: {
-    assets: 'https://lihautan.com/svelte-json-tree',
-  },
   kit: {
+    paths: {
+      assets: 'https://lihautan.com/svelte-json-tree',
+      base: dev ? '' : '/svelte-json-tree',
+    },
     adapter: adapter({
       pages: 'docs',
       assets: 'docs',
@@ -38,6 +40,11 @@ const config = {
     }),
     package: {
       files: mm.matcher('!doc-components/**/*'),
+    },
+    prerender: {
+      default: true,
+      entries: ['*'],
+      crawl: false,
     },
   },
   extensions: ['.svelte', '.md'],

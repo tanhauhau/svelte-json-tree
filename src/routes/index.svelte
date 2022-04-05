@@ -13,6 +13,7 @@
     <img alt="github" src="https://img.shields.io/github/stars/tanhauhau/svelte-json-tree?style=social" />
   </a>
 </div>
+
 <Playground />
 
 <style>
