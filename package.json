@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
-    "package": "svelte-kit package && vite build && STANDALONE=true vite build",
+    "package": "svelte-kit package && vite build && STANDALONE=true vite build && node scripts/post-package.js",
     "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
