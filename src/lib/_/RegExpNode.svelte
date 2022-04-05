@@ -10,14 +10,14 @@
 </script>
 
 <JSONNested {keys}>
-  <svelte:fragment slot="summary"><span>{str}</span></svelte:fragment>
-  <svelte:fragment slot="preview"><span>{str}</span></svelte:fragment>
-  <svelte:fragment slot="item_key" let:key>{String(key)}</svelte:fragment>
+  <svelte:fragment slot="summary"><span class="regex">{str}</span></svelte:fragment>
+  <svelte:fragment slot="preview"><span class="regex">{str}</span></svelte:fragment>
+  <svelte:fragment slot="item_key" let:key><span class="internal">{String(key)}</span></svelte:fragment>
   <svelte:fragment slot="item_value" let:key><JSONNode value={value[key]} /></svelte:fragment>
 </JSONNested>
 
 <style>
-  span {
+  .regex {
     color: var(--regex-color);
   }
 </style>

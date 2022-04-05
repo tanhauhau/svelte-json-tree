@@ -76,7 +76,9 @@
     >{#if !ctx.isArrow}<span class="fn i">{getPreview1(ctx)}</span>{/if}{#if !ctx.isClass}<span class="i">{getPreview2(ctx)}</span
       >{/if}</svelte:fragment
   >
-  <svelte:fragment slot="item_key" let:key><span class:internal={key === FUNCTION || key === PROTO}>{key}</span></svelte:fragment>
+  <svelte:fragment slot="item_key" let:key
+    ><span class={key === FUNCTION || key === PROTO ? 'internal' : 'property'}>{key}</span></svelte:fragment
+  >
   <svelte:fragment slot="item_value" let:key
     >{#if key === FUNCTION}<span class="i">{str}</span>{:else if key === 'prototype'}<JsonObjectNode
         value={getValue(key)}
@@ -87,12 +89,9 @@
 <style>
   .i {
     font-style: italic;
-    color: var(--function-color);
   }
-  .fn {
+  .fn,
+  .i {
     color: var(--function-color);
-  }
-  .internal {
-    color: var(--internal-color);
   }
 </style>

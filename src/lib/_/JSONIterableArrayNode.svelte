@@ -28,14 +28,14 @@
 <JSONNested keys={[ENTRIES, 'size']} shouldShowColon={(key) => key !== ENTRIES}>
   <svelte:fragment slot="summary"><span class="label">{nodeType}({indexes.length})</span></svelte:fragment>
   <svelte:fragment slot="preview">
-    <PreviewList list={previewItems} hasMore={previewItems.length < items.length} prefix={`${nodeType}(${indexes.length}) {`} postfix="}">
+    <PreviewList list={previewItems} hasMore={previewItems.length < items.length} label={`${nodeType}(${indexes.length}) `} prefix={'{'} postfix="}">
       <svelte:fragment slot="item" let:item>
         <JSONNode value={item} />
       </svelte:fragment>
     </PreviewList>
   </svelte:fragment>
 
-  <svelte:fragment slot="item_key" let:key><span class="{key === ENTRIES?'internal':'property'}">{key}</span></svelte:fragment>
+  <svelte:fragment slot="item_key" let:key><span class={key === ENTRIES ? 'internal' : 'property'}>{key}</span></svelte:fragment>
   <svelte:fragment slot="item_value" let:key>
     {#if key === ENTRIES}
       <JSONNested keys={indexes} defaultExpanded>
@@ -47,15 +47,3 @@
     {/if}
   </svelte:fragment>
 </JSONNested>
-
-<style>
-  .internal {
-    color: var(--internal-color);
-  }
-  .label {
-    color: var(--label-color);
-  }
-  .property {
-    color: var(--property-color);
-  }
-</style>

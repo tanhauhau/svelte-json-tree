@@ -59,7 +59,7 @@
         <li class:indent={$expanded} on:click|stopPropagation={() => {}}>
           <Expandable key={expandKey(key)} expanded={child_expanded[index]}>
             <span class="label" on:click={() => child_expanded[index].update((value) => !value)}>
-              <JSONArrow /><slot name="item_key" {key} {index} />{!shouldShowColon || shouldShowColon(key) ? ':' : ''}
+              <JSONArrow /><slot name="item_key" {key} {index} />{#if !shouldShowColon || shouldShowColon(key)}<span class="operator">:</span>{/if}
             </span><slot name="item_value" {key} {index} />
           </Expandable>
         </li>
@@ -77,7 +77,6 @@
     padding-left: var(--li-identation);
   }
   .label {
-    color: var(--label-color);
     position: relative;
   }
 </style>

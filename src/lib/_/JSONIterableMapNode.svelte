@@ -4,7 +4,7 @@
   import JSONNode from './JSONNode.svelte';
   import PreviewList from './PreviewList.svelte';
 
-  export let value: Iterable<unknown>;
+  export let value: Map<unknown, unknown>;
   useState();
 
   let indexes = [];
@@ -33,21 +33,23 @@
 <JSONNested keys={[ENTRIES, 'size']} shouldShowColon={(key) => key !== ENTRIES}>
   <svelte:fragment slot="summary"><span color="label">Map({keys.length})</span></svelte:fragment>
   <svelte:fragment slot="preview">
-    <PreviewList list={previewKeys} hasMore={previewKeys.length < value.size} prefix={`Map(${keys.length}) {`} postfix="}">
+    <PreviewList list={previewKeys} hasMore={previewKeys.length < value.size} label={`Map(${keys.length}) `} prefix={`{`} postfix="}">
       <svelte:fragment slot="item" let:item>
-        <JSONNode value={item} /><span class="label">{' => '}</span><JSONNode value={value.get(item)} />
+        <JSONNode value={item} /><span class="operator">{' => '}</span><JSONNode value={value.get(item)} />
       </svelte:fragment>
     </PreviewList>
   </svelte:fragment>
 
-  <svelte:fragment slot="item_key" let:key><span class="{key === ENTRIES ? 'internal' : 'property'}">{key}</span></svelte:fragment>
+  <svelte:fragment slot="item_key" let:key><span class={key === ENTRIES ? 'internal' : 'property'}>{key}</span></svelte:fragment>
   <svelte:fragment slot="item_value" let:key>
-    {#if key === ENTRIES}<JSONNested keys={indexes} expandKey={index => keys[index]} defaultExpanded>
+    {#if key === ENTRIES}<JSONNested keys={indexes} expandKey={(index) => keys[index]} defaultExpanded>
         <svelte:fragment slot="item_key" let:key={index}><span class="property">{index}</span></svelte:fragment>
         <svelte:fragment slot="item_value" let:key={index}>
           <JSONNested keys={['key', 'value']}>
             <svelte:fragment slot="preview"
-              ><span class="label">{'{ '}</span><JSONNode value={keys[index]} /><span class="label">{' => '}</span><JSONNode value={values[index]} /><span class="label">{' }'}</span></svelte:fragment
+              ><span class="operator">{'{ '}</span><JSONNode value={keys[index]} /><span class="operator">{' => '}</span><JSONNode
+                value={values[index]}
+              /><span class="operator">{' }'}</span></svelte:fragment
             >
             <svelte:fragment slot="item_key" let:key={name}><span class="property">{name}</span></svelte:fragment>
             <svelte:fragment slot="item_value" let:key={name}
@@ -61,15 +63,3 @@
     {/if}
   </svelte:fragment>
 </JSONNested>
-
-<style>
-  .internal {
-    color: var(--internal-color);
-  }
-  .label {
-    color: var(--label-color);
-  }
-  .property {
-    color: var(--property-color);
-  }
-</style>

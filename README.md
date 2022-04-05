@@ -67,10 +67,14 @@ jsonTree.$set({ value: ['1'] });
 --json-tree-function-color: #112aa7;
 --json-tree-number-color: #3029cf;
 --json-tree-label-color: #871d8f;
+--json-tree-property-color: #000000;
 --json-tree-arrow-color: #727272;
+--json-tree-operator-color: #727272;
 --json-tree-null-color: #8d8d8d;
 --json-tree-undefined-color: #8d8d8d;
 --json-tree-date-color: #8d8d8d;
+--json-tree-internal-color: grey;
+--json-tree-regex-color: #cb3f41;
 /* position */
 --json-tree-li-indentation: 1em;
 --json-tree-li-line-height: 1.3;

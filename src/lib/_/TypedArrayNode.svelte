@@ -31,20 +31,16 @@
 </script>
 
 <JSONNested {keys}>
-  <svelte:fragment slot="summary">{nodeType}({value.length})</svelte:fragment>
+  <svelte:fragment slot="summary"><span class="label">{nodeType}({value.length})</span></svelte:fragment>
   <svelte:fragment slot="preview">
-    <PreviewList list={preview} hasMore={preview.length < value.length} prefix="{nodeType}({value.length}) [" postfix="]">
+    <PreviewList list={preview} hasMore={preview.length < value.length} label="{nodeType}({value.length}) " prefix="[" postfix="]">
       <svelte:fragment slot="item" let:item>
         <JSONNode value={item} />
       </svelte:fragment>
     </PreviewList>
   </svelte:fragment>
-  <svelte:fragment slot="item_key" let:key><span class:label={internalKeys.includes(key)}>{String(key)}</span></svelte:fragment>
+  <svelte:fragment slot="item_key" let:key
+    ><span class={internalKeys.includes(key) ? 'internal' : 'property'}>{String(key)}</span></svelte:fragment
+  >
   <svelte:fragment slot="item_value" let:key><JSONNode value={getValue(key)} /></svelte:fragment>
 </JSONNested>
-
-<style>
-  .label {
-    color: var(--internal-color);
-  }
-</style>

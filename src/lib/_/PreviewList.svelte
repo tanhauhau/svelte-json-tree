@@ -1,30 +1,39 @@
 <script lang="ts">
-  export let list: Array<unknown>;
+  export let list:
+    | Array<unknown>
+    | Int8Array
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Float32Array
+    | Float64Array
+    | BigInt64Array
+    | BigUint64Array;
   export let hasMore: boolean;
+  export let label: string = undefined;
   export let prefix: string = undefined;
   export let postfix: string = undefined;
 </script>
 
-{#if prefix}<span class="label">{prefix}</span>{/if}
+{#if prefix}{#if label}<span class="label">{label}</span>{/if}<span class="operator">{prefix}</span>{/if}
 {#each list as item, index}
   <slot name="item" {item} {index} />
   {#if index < list.length - 1}
-    <span class="comma">,</span>
+    <span class="comma operator">,</span>
   {/if}
 {/each}
 {#if hasMore}
-  <span class="comma">,</span>
-  <span class="label">…</span>
+  <span class="comma operator">,</span>
+  <span class="operator">…</span>
 {/if}
-{#if postfix}<span class="label">{postfix}</span>{/if}
+{#if postfix}<span class="operator">{postfix}</span>{/if}
 
 <style>
   .comma {
     margin-left: -0.5em;
     margin-right: 0.5em;
-    color: var(--label-color);
-  }
-  .label {
-    color: var(--label-color);
   }
 </style>
