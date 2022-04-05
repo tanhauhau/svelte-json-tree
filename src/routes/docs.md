@@ -49,7 +49,10 @@ Style with [style-props](https://svelte.dev/docs#template-syntax-component-direc
     n: null,
     u: undefined,
     fn: function (a, b) {},
-    map: new Map([[1, 2], ["3", false]]),
+    map: new Map([
+      [1, 2],
+      ['3', false],
+    ]),
     set: new Set([true, false, Infinity]),
     regex: /^https?:\/\/$/g,
     error: new Error('oops'),
@@ -60,16 +63,16 @@ Style with [style-props](https://svelte.dev/docs#template-syntax-component-direc
 <div style="background: #272822; padding: 1em;">
   <JsonTree
     {value}
-    --json-tree-property-color="#a6e22e" 
-    --json-tree-string-color="#f25a00" 
-    --json-tree-symbol-color="#66d9ef" 
-    --json-tree-boolean-color="#c594c5" 
-    --json-tree-function-color="#c594c5" 
-    --json-tree-number-color="#f99157" 
-    --json-tree-label-color="#f92672" 
-    --json-tree-arrow-color="#ae81ff" 
-    --json-tree-null-color="#66d9ef" 
-    --json-tree-undefined-color="#66d9ef" 
+    --json-tree-property-color="#a6e22e"
+    --json-tree-string-color="#f25a00"
+    --json-tree-symbol-color="#66d9ef"
+    --json-tree-boolean-color="#c594c5"
+    --json-tree-function-color="#c594c5"
+    --json-tree-number-color="#f99157"
+    --json-tree-label-color="#f92672"
+    --json-tree-arrow-color="#ae81ff"
+    --json-tree-null-color="#66d9ef"
+    --json-tree-undefined-color="#66d9ef"
     --json-tree-date-color="#fd971f"
     --json-tree-operator-color="#f8f8f2"
     --json-tree-regex-color="#9effff"
@@ -95,19 +98,19 @@ Expand by paths
 <script>
   let value = {
     a: {
-      d: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      e: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      f: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
+      d: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      e: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      f: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
     },
     b: {
-      d: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      e: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      f: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
+      d: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      e: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      f: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
     },
     c: {
-      d: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      e: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      f: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
+      d: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      e: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      f: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
     },
   };
 </script>
@@ -141,19 +144,19 @@ Expand by level
 <script>
   let value = {
     a: {
-      d: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      e: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      f: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
+      d: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      e: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      f: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
     },
     b: {
-      d: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      e: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      f: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
+      d: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      e: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      f: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
     },
     c: {
-      d: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      e: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
-      f: { h: [{x: 1}, { y: 2}], i: [{x: 1}, { y: 2}], j: [{x: 1}, { y: 2}] },
+      d: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      e: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
+      f: { h: [{ x: 1 }, { y: 2 }], i: [{ x: 1 }, { y: 2 }], j: [{ x: 1 }, { y: 2 }] },
     },
   };
 </script>
@@ -181,7 +184,43 @@ Expand by level
   },
 }} defaultExpandedLevel={1} />
 
-<div class="spacer"></div>
+## CJS / ESM / Standalone / UMD
+
+You can import `svelte-json-tree` directly, without having to setting up plugins to transform `.svelte` code
+
+```js
+import Jsontree from 'svelte-json-tree';
+
+new Jsontree({
+  target: document.body,
+  props: { value: [14, 15] },
+});
+```
+
+If you want to use it without installing `svelte`, use the **standalone** version
+
+```js
+import Jsontree from 'svelte-json-tree/standalone';
+
+new Jsontree({
+  target: document.body,
+  props: { value: [14, 15] },
+});
+```
+
+Or use the UMD version
+
+```html
+<html>
+  <script src="https://unpkg.com/svelte-json-tree@1.0.0/dist/standalone/umd/index.js"></script>
+  <script>
+    new SvelteJsonTree({
+      target: document.body,
+      props: { value: [20, 21] },
+    });
+  </script>
+</html>
+```
 
 <style>
   pre {
