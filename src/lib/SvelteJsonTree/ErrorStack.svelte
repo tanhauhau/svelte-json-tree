@@ -7,6 +7,7 @@
   $expandable = true;
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <span on:click={() => ($expanded = !$expanded)}>
   {#if $expanded}
     {#each stack as line, index}

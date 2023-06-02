@@ -44,6 +44,7 @@
 {#if displayMode === 'summary'}
   <slot name="summary" />
 {:else}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <span class="root" on:click={toggleExpand}>
     {#if root}
       <JSONArrow {expanded} />
@@ -54,6 +55,7 @@
   </span>
 
   {#if $expanded}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <ul on:click|stopPropagation={toggleExpand}>
       {#each keys as key, index}
         <li class:indent={$expanded} on:click|stopPropagation={() => {}}>
