@@ -2,7 +2,6 @@ import { mdsvex } from 'mdsvex';
 import mdsvexConfig from './mdsvex.config.js';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import adapter from '@sveltejs/adapter-static';
-// import mm from 'micromatch';
 
 const dev = process.env.NODE_ENV === 'development';
 
@@ -18,13 +17,8 @@ const config = {
       base: dev ? '' : '/svelte-json-tree',
     },
     adapter: adapter({
-      // pages: 'docs',
-      // assets: 'docs',
       fallback: null,
     }),
-    // package: {
-    //   files: mm.matcher('!doc-components/**/*'),
-    // },
     prerender: {
       entries: ['*'],
       crawl: false,

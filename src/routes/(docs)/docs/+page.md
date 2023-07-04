@@ -1,7 +1,7 @@
 # svelte-json-tree
 
 <script>
-  import JsonTree from '$lib';
+  import JsonTree from '$lib/svelte-json-tree';
 </script>
 
 ## Install it
@@ -184,7 +184,7 @@ Expand by level
   },
 }} defaultExpandedLevel={1} />
 
-## CJS / ESM / Standalone / UMD
+## ESM / Standalone / UMD
 
 You can import `svelte-json-tree` directly, without having to setting up plugins to transform `.svelte` code
 

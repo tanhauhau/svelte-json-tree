@@ -1,5 +1,5 @@
 <script>
-  import JsonTree from '$lib';
+  import JsonTree from '$lib/svelte-json-tree';
   import { writable, readable, derived } from 'svelte/store';
   import objects from './snippets/objects.text?raw';
   import maps from './snippets/maps.text?raw';

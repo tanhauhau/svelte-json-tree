@@ -44,7 +44,7 @@
 {#if displayMode === 'summary'}
   <slot name="summary" />
 {:else}
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
   <span class="root" on:click={toggleExpand}>
     {#if root}
       <JSONArrow {expanded} />
@@ -55,11 +55,13 @@
   </span>
 
   {#if $expanded}
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
     <ul on:click|stopPropagation={toggleExpand}>
       {#each keys as key, index}
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
         <li class:indent={$expanded} on:click|stopPropagation={() => {}}>
           <Expandable key={expandKey(key)} expanded={child_expanded[index]}>
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
             <span class="label" on:click={() => child_expanded[index].update((value) => !value)}>
               <JSONArrow /><slot name="item_key" {key} {index} />{#if !shouldShowColon || shouldShowColon(key)}<span class="operator">:</span>{/if}
             </span><slot name="item_value" {key} {index} />
