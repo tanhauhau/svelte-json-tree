@@ -30,6 +30,7 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@playwright/test": "^1.28.1",
     "@sveltejs/adapter-static": "^2.0.0",
     "@sveltejs/kit": "^1.20.4",
