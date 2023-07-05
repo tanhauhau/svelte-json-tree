@@ -1,5 +1,11 @@
 # svelte-json-tree
 
+## 2.1.0
+
+### Minor Changes
+
+- 3316929: add `shouldShowPreview` to allow hiding the preview"
+
 ## 2.0.0
 
 ### Major Changes
