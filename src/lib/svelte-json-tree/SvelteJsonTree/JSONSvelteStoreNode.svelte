@@ -25,8 +25,8 @@
   <svelte:fragment slot="summary"
     ><span class="label">{isWritableStore ? 'writable(' : 'readable('}<JSONNode value={storeValue} />{')'}</span></svelte:fragment
   >
-  <svelte:fragment slot="preview">
-    <PreviewList list={previewKeys} hasMore={previewKeys.length < objectKeys.length} prefix={'{'} postfix={'}'}>
+  <svelte:fragment slot="preview" let:root>
+    <PreviewList list={previewKeys} hasMore={previewKeys.length < objectKeys.length} prefix={'{'} postfix={'}'} {root}>
       <svelte:fragment slot="item" let:item
         ><span class="property">{item}</span><span class="operator">{': '}</span><JSONNode value={value[item]} /></svelte:fragment
       >

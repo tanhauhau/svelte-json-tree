@@ -11,6 +11,7 @@ export type State = {
   shouldExpandNode: (opts: { keyPath: string[]; level: number }) => boolean;
   keyPath: string[],
   level: number,
+  showPreview: boolean;
 };
 
 export function useState(newState?: Partial<State> | ((state: State) => Partial<State>), opts?: { expandable?: boolean }): State {

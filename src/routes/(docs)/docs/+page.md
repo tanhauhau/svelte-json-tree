@@ -184,6 +184,34 @@ Expand by level
   },
 }} defaultExpandedLevel={1} />
 
+### Hide preview
+
+Sometimes when you have a JSON object or array, there's a preview showing to the right of the object.
+You can set `shouldShowPreview` to `false` to hide it.
+
+```svelte
+<script>
+  let value = {
+    message: 'hello world',
+    item: [1, 2, 3],
+    nested: {
+      key: 'value',
+    },
+  };
+</script>
+
+<JsonTree {value} shouldShowPreview={false} />
+```
+
+<JsonTree value={{
+  message: 'hello world',
+  item: [1, 2, 3],
+  nested: {
+    key: 'value',
+  },
+}} shouldShowPreview={false} />
+
+
 ## ESM / Standalone / UMD
 
 You can import `svelte-json-tree` directly, without having to setting up plugins to transform `.svelte` code

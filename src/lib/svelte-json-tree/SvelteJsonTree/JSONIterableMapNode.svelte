@@ -32,8 +32,8 @@
 
 <JSONNested keys={[ENTRIES, 'size']} shouldShowColon={(key) => key !== ENTRIES}>
   <svelte:fragment slot="summary"><span color="label">Map({keys.length})</span></svelte:fragment>
-  <svelte:fragment slot="preview">
-    <PreviewList list={previewKeys} hasMore={previewKeys.length < value.size} label={`Map(${keys.length}) `} prefix={`{`} postfix="}">
+  <svelte:fragment slot="preview" let:root>
+    <PreviewList list={previewKeys} hasMore={previewKeys.length < value.size} label={`Map(${keys.length}) `} prefix={`{`} postfix="}" {root}>
       <svelte:fragment slot="item" let:item>
         <JSONNode value={item} /><span class="operator">{' => '}</span><JSONNode value={value.get(item)} />
       </svelte:fragment>

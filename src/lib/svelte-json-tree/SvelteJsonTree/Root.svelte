@@ -6,6 +6,7 @@
   import { getShouldExpandNode } from './utils/expand';
 
   export let value: unknown;
+  export let shouldShowPreview: boolean = true;
   export let defaultExpandedPaths: string[] = [];
   export let defaultExpandedLevel: number = 0;
 
@@ -19,6 +20,7 @@
     shouldExpandNode: (opts) => shouldExpandNode(opts),
     level: 0,
     keyPath: [],
+    showPreview: shouldShowPreview,
   });
 </script>
 

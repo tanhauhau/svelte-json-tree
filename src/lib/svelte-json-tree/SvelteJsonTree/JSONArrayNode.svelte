@@ -11,8 +11,8 @@
 
 <JSONNested {keys}>
   <svelte:fragment slot="summary"><span class="label">Array({value.length})</span></svelte:fragment>
-  <svelte:fragment slot="preview">
-    <PreviewList list={preview} hasMore={preview.length < value.length} label="({value.length}) " prefix="[" postfix="]">
+  <svelte:fragment slot="preview" let:root>
+    <PreviewList list={preview} hasMore={preview.length < value.length} label="({value.length}) " prefix="[" postfix="]" {root}>
       <svelte:fragment slot="item" let:item>
         <JSONNode value={item} />
       </svelte:fragment>

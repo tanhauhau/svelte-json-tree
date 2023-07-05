@@ -50,7 +50,7 @@
       <JSONArrow {expanded} />
     {/if}
     <Summary>
-      <slot name="preview" />
+      <slot name="preview" {root} />
     </Summary>
   </span>
 

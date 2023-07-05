@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { useState } from './utils/context';
+
   export let list:
     | Array<unknown>
     | Int8Array
@@ -16,20 +18,25 @@
   export let label: string = undefined;
   export let prefix: string = undefined;
   export let postfix: string = undefined;
+  export let root: boolean = false;
+  
+  const { showPreview } = useState();
 </script>
 
-{#if prefix}{#if label}<span class="label">{label}</span>{/if}<span class="operator">{prefix}</span>{/if}
-{#each list as item, index}
-  <slot name="item" {item} {index} />
-  {#if index < list.length - 1}
+{#if root || showPreview}
+  {#if prefix}{#if label}<span class="label">{label}</span>{/if}<span class="operator">{prefix}</span>{/if}
+  {#each list as item, index}
+    <slot name="item" {item} {index} />
+    {#if index < list.length - 1}
+      <span class="comma operator">,</span>
+    {/if}
+  {/each}
+  {#if hasMore}
     <span class="comma operator">,</span>
+    <span class="operator">…</span>
   {/if}
-{/each}
-{#if hasMore}
-  <span class="comma operator">,</span>
-  <span class="operator">…</span>
+  {#if postfix}<span class="operator">{postfix}</span>{/if}
 {/if}
-{#if postfix}<span class="operator">{postfix}</span>{/if}
 
 <style>
   .comma {
