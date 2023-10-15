@@ -12,6 +12,7 @@ export type State = {
   keyPath: string[],
   level: number,
   showPreview: boolean;
+  shouldTreatIterableAsObject: boolean;
 };
 
 export function useState(newState?: Partial<State> | ((state: State) => Partial<State>), opts?: { expandable?: boolean }): State {

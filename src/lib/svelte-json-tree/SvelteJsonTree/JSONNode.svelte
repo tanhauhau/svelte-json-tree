@@ -12,10 +12,13 @@
   import JsonSvelteStoreNode from './JSONSvelteStoreNode.svelte';
   import TypedArrayNode from './TypedArrayNode.svelte';
   import RegExpNode from './RegExpNode.svelte';
+  import { useState } from './utils/context';
 
   export let value: unknown;
   const nodeType = writable<string>();
-  $: $nodeType = objType(value);
+  const { shouldTreatIterableAsObject } = useState();
+
+  $: $nodeType = objType(value, shouldTreatIterableAsObject);
   $: [componentType, props] = getComponentAndProps($nodeType, value);
 
   function getComponentAndProps(nodeType: string, value: any) {
@@ -70,7 +73,7 @@
       case 'RegExp':
         return [RegExpNode];
       default:
-        return [JSONValueNode, { nodeType, value: `<${nodeType}>` }];
+        return [JSONObjectNode, { summary: nodeType }];
     }
   }
 </script>

@@ -7,6 +7,7 @@
 
   export let value: unknown;
   export let shouldShowPreview: boolean = true;
+  export let shouldTreatIterableAsObject: boolean = false;
   export let defaultExpandedPaths: string[] = [];
   export let defaultExpandedLevel: number = 0;
 
@@ -21,6 +22,7 @@
     level: 0,
     keyPath: [],
     showPreview: shouldShowPreview,
+    shouldTreatIterableAsObject,
   });
 </script>
 
